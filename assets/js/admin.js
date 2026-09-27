@@ -136,6 +136,16 @@
   }
 
   /* ---------------- validation ---------------- */
+  // A product is identified by its ASIN: the same ASIN can never be in the catalog twice.
+  function asinOf(link) {
+    var m = String(link || "").match(/\/dp\/([A-Z0-9]{10})/i);
+    return m ? m[1].toUpperCase() : null;
+  }
+  function findByAsin(asin, items, exceptId) {
+    if (!asin) return null;
+    return items.filter(function (x) { return x.id !== exceptId && asinOf(x.affiliateLink) === asin; })[0] || null;
+  }
+
   function validate(p, allItems, editingId) {
     if (!p.name) return "Falta el nombre.";
     if (!p.affiliateLink) return "Falta un enlace de Amazon válido.";
@@ -143,6 +153,8 @@
     if (!CATS[p.category]) return "Elige una categoría.";
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.id)) return "El ID solo puede tener minúsculas, números y guiones.";
     if (p.id !== editingId && allItems.some(function (x) { return x.id === p.id; })) return "Ya existe un producto con ese ID.";
+    var dup = findByAsin(asinOf(p.affiliateLink), allItems, editingId || p.id);
+    if (dup) return "Este producto ya está en el catálogo: “" + dup.name + "”.";
     return null;
   }
 
@@ -170,9 +182,12 @@
 
   function onLinkInput() {
     var out = $("f-link-out"), conv = convert($("f-link").value);
+    var dup = conv && conv.ok ? findByAsin(conv.asin, current(), editingId) : null;
     if (!conv) { out.textContent = ""; out.dataset.kind = ""; }
+    else if (dup) { out.textContent = "⚠ Este producto ya está en el catálogo: “" + dup.name + "”. No se puede añadir otra vez."; out.dataset.kind = "error"; }
     else if (conv.ok) { out.textContent = "→ " + conv.output; out.dataset.kind = "ok"; }
     else { out.textContent = conv.error; out.dataset.kind = "error"; }
+    $("f-save").disabled = !!dup;
     renderPreview();
   }
 
@@ -389,8 +404,19 @@
       var d = JSON.parse(b64decode(decodeURIComponent(m[1])));
       history.replaceState(null, "", location.pathname);
 
-      // Came from the RFC Grab queue? Save it straight away with the category chosen in bulk.
       var conv = convert(d.url), q = queue();
+
+      // Already in the catalog? Don't import it again.
+      var existing = conv && conv.ok ? findByAsin(conv.asin, current(), null) : null;
+      if (existing) {
+        saveQueue(q.filter(function (it) { return it.asin !== conv.asin; }));
+        setStatus($("bulk-status"), "Este producto ya está en el catálogo: “" + existing.name + "”. No se ha añadido otra vez.", "error");
+        flash("Ya lo tenías en el catálogo — no se duplica.");
+        $("conv-title").scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      // Came from the RFC Grab queue? Save it straight away with the category chosen in bulk.
       var hit = conv && conv.ok ? q.filter(function (it) { return it.asin === conv.asin; })[0] : null;
       if (hit) {
         var p = saveDraftDirect(d, hit.link, hit.category);
@@ -495,8 +521,19 @@
 
     $("publish").disabled = true;
     setStatus(status, "Publicando…", "");
-    var nNew = 0, nEdit = 0, nDel = c.deleted.length;
+    var nNew = 0, nEdit = 0, nDel = c.deleted.length, skipped = [];
     ghGet().then(function (remote) {
+      // Last check against the live catalog (it may have changed from another browser):
+      // new products whose ASIN is already published are dropped, never duplicated.
+      var live = remote.items.filter(function (p) { return c.deleted.indexOf(p.id) === -1; });
+      var seen = {};
+      live.forEach(function (p) { var a = asinOf(p.affiliateLink); if (a) seen[a] = p.id; });
+      Object.keys(c.upserts).forEach(function (id) {
+        var a = asinOf(c.upserts[id].affiliateLink);
+        if (a && seen[a] && seen[a] !== id) { skipped.push(c.upserts[id].name); delete c.upserts[id]; }
+        else if (a) seen[a] = id;
+      });
+      if (!Object.keys(c.upserts).length && !c.deleted.length) throw new Error("todo lo pendiente ya estaba en el catálogo (" + skipped.length + " duplicado" + (skipped.length === 1 ? "" : "s") + " descartado" + (skipped.length === 1 ? "" : "s") + ")");
       Object.keys(c.upserts).forEach(function (id) { remote.items.some(function (p) { return p.id === id; }) ? nEdit++ : nNew++; });
       var next = cleanForPublish(applyChanges(remote.items, c));
       var parts = [];
@@ -508,11 +545,13 @@
       published = next;
       saveChanges({ upserts: {}, deleted: [] });
       renderList();
-      status.innerHTML = "✔ Publicado. La web se reconstruye sola en 1–2 minutos. <a class=\"text-link\" href=\"https://github.com/" + esc(CFG.site.repo) + "/actions\" target=\"_blank\" rel=\"noopener\">Ver progreso →</a>";
+      status.innerHTML = "✔ Publicado. La web se reconstruye sola en 1–2 minutos. <a class=\"text-link\" href=\"https://github.com/" + esc(CFG.site.repo) + "/actions\" target=\"_blank\" rel=\"noopener\">Ver progreso →</a>" +
+        (skipped.length ? "<br>No se han subido por estar ya en el catálogo: " + skipped.map(esc).join(", ") + "." : "");
       status.dataset.kind = "ok";
     }).catch(function (e) {
+      if (skipped.length) { saveChanges(c); renderList(); }
       setStatus(status, "No se ha publicado: " + e.message, "error");
-      $("publish").disabled = false;
+      $("publish").disabled = pendingCount() === 0;
     });
   }
 

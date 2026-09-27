@@ -32,6 +32,7 @@ const BUILD_DATE = new Date().toISOString().slice(0, 10);
 function validate(products) {
   const errors = [];
   const ids = new Set();
+  const asins = new Map();
   products.forEach((p, i) => {
     const where = `products[${i}] (${p && p.id ? p.id : "no id"})`;
     if (!p || typeof p !== "object") return errors.push(`${where}: not an object`);
@@ -46,6 +47,12 @@ function validate(products) {
     if (link) {
       if (!/(^|\.)amazon\./.test(link.hostname)) errors.push(`${where}: affiliateLink is not an Amazon URL`);
       if (!link.searchParams.get("tag")) errors.push(`${where}: affiliateLink has no affiliate tag`);
+      const m = link.pathname.match(/\/dp\/([A-Z0-9]{10})/i);
+      if (m) {
+        const asin = m[1].toUpperCase();
+        if (asins.has(asin)) errors.push(`${where}: duplicate product — ASIN ${asin} is already used by "${asins.get(asin)}"`);
+        else asins.set(asin, p.id);
+      }
     }
   });
   if (errors.length) {
