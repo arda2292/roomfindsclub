@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /favoritos.html
+
+Sitemap: https://roomfindsclub.com/sitemap.xml

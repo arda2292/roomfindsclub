@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — RoomFindsClub</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="site-header"></header>
+
+<div id="lock-screen" class="lock-screen">
+  <span class="cat-icon" style="margin:0 auto 16px;">
+  </span>
+  <h2 style="font-family:var(--font-display);text-transform:uppercase;">Acceso admin</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:18px;">Panel privado de RoomFindsClub.</p>
+  <input type="text" id="pw-input" placeholder="Contraseña" autocomplete="off">
+  <button class="btn btn-primary" id="pw-submit" style="width:100%;justify-content:center;margin-top:12px;">Entrar</button>
+  <p id="pw-error" style="color:#b3261e;font-size:13px;margin-top:10px;display:none;">Contraseña incorrecta.</p>
+</div>
+
+<main class="admin-wrap" id="admin-main" style="display:none;">
+
+  <div class="badge-note">
+    Panel de gestión interno. No está indexado y no aparece en la navegación pública. La protección por contraseña es básica (solo en el navegador) — no subas aquí nada sensible.
+  </div>
+
+  <div class="admin-card">
+    <h2>1 · Convertir enlaces a afiliado</h2>
+    <p class="hint">Pega uno o varios enlaces de Amazon (uno por línea). Se limpian y se les añade tu tag <code id="tag-inline"></code>.</p>
+    <label for="bulk-input">Enlaces en bruto</label>
+    <textarea id="bulk-input" placeholder="https://www.amazon.com/dp/B0XXXXXXX&#10;https://www.amazon.es/gp/product/B0YYYYYYY"></textarea>
+    <button class="btn btn-primary" id="bulk-convert" style="margin-top:14px;">Convertir enlaces</button>
+    <div class="result-list" id="bulk-results"></div>
+  </div>
+
+  <div class="admin-card">
+    <h2>2 · Ficha de producto</h2>
+    <p class="hint">
+      Pega el enlace y pulsa <strong>Autorrellenar</strong>: lo intenta automáticamente y, si Amazon lo bloquea
+      (pasa a menudo, no depende de nosotros), copia tú mismo el nombre, la descripción y la imagen desde la ficha de Amazon.
+    </p>
+
+    <label for="p-link">Enlace de Amazon (bruto o ya convertido)</label>
+    <input type="url" id="p-link" placeholder="https://www.amazon.com/dp/B0XXXXXXX">
+    <button class="mini-btn" id="p-autofill" style="margin-top:10px;">⚡ Autorrellenar desde el enlace</button>
+    <span id="autofill-status" style="font-size:12.5px;color:var(--muted);margin-left:8px;"></span>
+
+    <label for="p-name">Nombre del producto</label>
+    <input type="text" id="p-name" placeholder="Nombre exacto de la ficha de Amazon">
+
+    <label for="p-desc">Descripción (de la ficha de Amazon)</label>
+    <textarea id="p-desc" placeholder="Descripción o características del producto"></textarea>
+
+    <label for="p-image">URL de la imagen (foto oficial de Amazon)</label>
+    <input type="url" id="p-image" placeholder="https://m.media-amazon.com/images/...">
+
+    <label for="p-cat">Categoría</label>
+    <select id="p-cat"></select>
+
+    <div class="admin-preview" id="p-preview" style="display:none;">
+      <img id="p-preview-img" src="" alt="Vista previa">
+      <div>
+        <strong id="p-preview-name"></strong>
+        <p style="color:var(--muted);font-size:13px;margin:4px 0 0;" id="p-preview-cat"></p>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="p-add" style="margin-top:18px;">Añadir a borradores</button>
+  </div>
+
+  <div class="admin-card">
+    <h2>3 · Borradores</h2>
+    <p class="hint">Productos listos para publicar. Descarga el JSON y súbelo (o pídeselo a Claude) para actualizar <code>data/products.json</code>.</p>
+    <table class="draft-table" id="draft-table">
+      <thead><tr><th>Nombre</th><th>Categoría</th><th></th></tr></thead>
+      <tbody id="draft-body"></tbody>
+    </table>
+    <p id="draft-empty" style="color:var(--muted);font-size:13.5px;">Todavía no hay borradores.</p>
+    <button class="btn btn-outline" id="draft-download" style="margin-top:16px;">⬇ Descargar products.json actualizado</button>
+    <div class="json-output" id="draft-json" style="margin-top:14px;display:none;"></div>
+  </div>
+
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  renderHeader("");
+  renderFooter();
+  document.getElementById("tag-inline").textContent = SITE.affiliateTag;
+
+  /* --- lock screen --- */
+  const lock = document.getElementById("lock-screen");
+  const adminMain = document.getElementById("admin-main");
+  function unlock() {
+    lock.style.display = "none";
+    adminMain.style.display = "block";
+  }
+  if (sessionStorage.getItem("rfc_admin_ok") === "1") unlock();
+  document.getElementById("pw-submit").addEventListener("click", tryUnlock);
+  document.getElementById("pw-input").addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
+  function tryUnlock() {
+    const val = document.getElementById("pw-input").value;
+    if (val === ADMIN_PASSWORD) {
+      sessionStorage.setItem("rfc_admin_ok", "1");
+      unlock();
+    } else {
+      document.getElementById("pw-error").style.display = "block";
+    }
+  }
+
+  /* --- categorías en el select --- */
+  const catSelect = document.getElementById("p-cat");
+  catSelect.innerHTML = CATEGORIES.map((c) => `<option value="${c.slug}">${c.name}</option>`).join("");
+
+  /* --- 1. conversor masivo --- */
+  document.getElementById("bulk-convert").addEventListener("click", () => {
+    const lines = document.getElementById("bulk-input").value.split("\n").map((l) => l.trim()).filter(Boolean);
+    const results = lines.map(convertToAffiliate);
+    const box = document.getElementById("bulk-results");
+    box.innerHTML = results
+      .map((r) => {
+        if (!r.ok) {
+          return `<div class="result-row"><span style="color:#b3261e;">✕ ${r.input} — ${r.error}</span></div>`;
+        }
+        return `<div class="result-row"><span>${r.output}</span><button class="mini-btn" data-copy="${r.output}">Copiar</button></div>`;
+      })
+      .join("");
+    box.querySelectorAll("[data-copy]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(btn.getAttribute("data-copy"));
+        btn.textContent = "¡Copiado!";
+        setTimeout(() => (btn.textContent = "Copiar"), 1200);
+      });
+    });
+  });
+
+  /* --- 2. autofill --- */
+  document.getElementById("p-autofill").addEventListener("click", async () => {
+    const link = document.getElementById("p-link").value.trim();
+    const status = document.getElementById("autofill-status");
+    if (!link) { status.textContent = "Pega antes un enlace de Amazon."; return; }
+    status.textContent = "Buscando datos...";
+    const result = await attemptAutofill(link);
+    if (result.ok) {
+      if (result.title) document.getElementById("p-name").value = result.title;
+      if (result.description) document.getElementById("p-desc").value = result.description;
+      if (result.image) document.getElementById("p-image").value = result.image;
+      status.textContent = "Rellenado automáticamente — revisa los campos antes de guardar.";
+      updatePreview();
+    } else {
+      status.textContent = "Amazon bloqueó el autorrelleno. Copia manualmente nombre, descripción y foto desde la ficha.";
+    }
+  });
+
+  function updatePreview() {
+    const img = document.getElementById("p-image").value;
+    const name = document.getElementById("p-name").value;
+    const cat = getCategory(document.getElementById("p-cat").value);
+    const preview = document.getElementById("p-preview");
+    if (img || name) {
+      preview.style.display = "flex";
+      document.getElementById("p-preview-img").src = img;
+      document.getElementById("p-preview-name").textContent = name || "(sin nombre)";
+      document.getElementById("p-preview-cat").textContent = cat ? cat.name : "";
+    }
+  }
+  ["p-image", "p-name", "p-cat"].forEach((id) =>
+    document.getElementById(id).addEventListener("input", updatePreview)
+  );
+
+  /* --- añadir borrador --- */
+  document.getElementById("p-add").addEventListener("click", () => {
+    const name = document.getElementById("p-name").value.trim();
+    const desc = document.getElementById("p-desc").value.trim();
+    const image = document.getElementById("p-image").value.trim();
+    const rawLink = document.getElementById("p-link").value.trim();
+    const category = document.getElementById("p-cat").value;
+
+    if (!name || !image || !rawLink) {
+      alert("Faltan campos: nombre, imagen y enlace son obligatorios.");
+      return;
+    }
+    const converted = convertToAffiliate(rawLink);
+    const affiliateLink = converted && converted.ok ? converted.output : rawLink;
+
+    const product = {
+      id: slugify(name) + "-" + Math.random().toString(36).slice(2, 6),
+      name,
+      description: desc,
+      image,
+      category,
+      affiliateLink,
+      dateAdded: new Date().toISOString().slice(0, 10)
+    };
+    addDraft(product);
+    renderDrafts();
+
+    document.getElementById("p-link").value = "";
+    document.getElementById("p-name").value = "";
+    document.getElementById("p-desc").value = "";
+    document.getElementById("p-image").value = "";
+    document.getElementById("p-preview").style.display = "none";
+    document.getElementById("autofill-status").textContent = "";
+  });
+
+  /* --- tabla de borradores --- */
+  function renderDrafts() {
+    const drafts = getDrafts();
+    const body = document.getElementById("draft-body");
+    const empty = document.getElementById("draft-empty");
+    const table = document.getElementById("draft-table");
+    if (!drafts.length) {
+      table.style.display = "none";
+      empty.style.display = "block";
+      return;
+    }
+    table.style.display = "table";
+    empty.style.display = "none";
+    body.innerHTML = drafts
+      .map((d) => {
+        const cat = getCategory(d.category);
+        return `<tr>
+          <td>${d.name}</td>
+          <td>${cat ? cat.name : d.category}</td>
+          <td><button class="mini-btn" data-remove="${d.id}">Quitar</button></td>
+        </tr>`;
+      })
+      .join("");
+    body.querySelectorAll("[data-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        removeDraft(btn.getAttribute("data-remove"));
+        renderDrafts();
+      });
+    });
+  }
+  renderDrafts();
+
+  /* --- descarga products.json fusionado --- */
+  document.getElementById("draft-download").addEventListener("click", async () => {
+    const drafts = getDrafts();
+    if (!drafts.length) {
+      alert("No hay borradores que añadir todavía.");
+      return;
+    }
+    const current = await loadProducts();
+    const merged = current.concat(drafts);
+    const jsonStr = JSON.stringify(merged, null, 2);
+
+    const out = document.getElementById("draft-json");
+    out.style.display = "block";
+    out.textContent = jsonStr;
+
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "products.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>
