@@ -1,0 +1,130 @@
+<div class="container admin">
+  <header class="page-head">
+    <span class="eyebrow">Panel privado</span>
+    <h1>Admin</h1>
+    <p class="lead">Convierte enlaces, crea fichas y publica en la web. Todo lo que guardes aquí se queda en este navegador hasta que pulses <strong>Publicar</strong>.</p>
+  </header>
+
+  <div class="admin-grid">
+    <div class="admin-main">
+
+      <!-- 1. Link converter -->
+      <section class="panel" aria-labelledby="conv-title">
+        <div class="panel-head">
+          <h2 id="conv-title"><span class="panel-num">01</span> Convertir enlaces a afiliado</h2>
+          <p>Pega uno o varios enlaces de Amazon, uno por línea. Se limpian (se quita todo el rastreo) y se les pone tu tag.</p>
+        </div>
+        <label class="field">
+          <span>Enlaces en bruto</span>
+          <textarea id="conv-input" rows="5" placeholder="https://www.amazon.com/Some-Product/dp/B0XXXXXXXX/ref=sr_1_3?keywords=..."></textarea>
+        </label>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="conv-run">Convertir</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="conv-copy-all" hidden>Copiar todos</button>
+        </div>
+        <ul class="conv-results" id="conv-results"></ul>
+      </section>
+
+      <!-- 2. Product form -->
+      <section class="panel" id="form-panel" aria-labelledby="form-title">
+        <div class="panel-head">
+          <h2 id="form-title"><span class="panel-num">02</span> <span id="form-mode">Nueva ficha de producto</span></h2>
+          <p>Pega el enlace y pulsa <strong>Autorrellenar</strong>. Si Amazon bloquea la lectura, usa el botón <strong>RFC Grab</strong> (sección 04) desde la propia ficha de Amazon: rellena todo en un clic.</p>
+        </div>
+
+        <label class="field">
+          <span>Enlace de Amazon</span>
+          <input type="url" id="f-link" placeholder="https://www.amazon.com/dp/B0XXXXXXXX" autocomplete="off">
+          <small id="f-link-out" class="hint"></small>
+        </label>
+        <div class="row">
+          <button class="btn btn-ghost btn-sm" type="button" id="f-autofill">⚡ Autorrellenar desde el enlace</button>
+          <span class="status" id="f-autofill-status" role="status"></span>
+        </div>
+
+        <label class="field">
+          <span>Nombre del producto</span>
+          <input type="text" id="f-name" autocomplete="off" required>
+        </label>
+        <label class="field">
+          <span>Descripción <small>(líneas que empiezan por "- " se muestran como lista)</small></span>
+          <textarea id="f-desc" rows="7"></textarea>
+        </label>
+        <label class="field">
+          <span>URL de la imagen</span>
+          <input type="url" id="f-image" placeholder="https://m.media-amazon.com/images/I/....jpg" autocomplete="off">
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>Categoría</span>
+            <select id="f-cat"></select>
+          </label>
+          <label class="field">
+            <span>ID / URL <small>(se genera solo)</small></span>
+            <input type="text" id="f-id" autocomplete="off" pattern="[a-z0-9]+(-[a-z0-9]+)*">
+          </label>
+        </div>
+        <p class="form-error" id="f-error" role="alert" hidden></p>
+        <div class="row">
+          <button class="btn btn-primary" type="button" id="f-save">Guardar ficha</button>
+          <button class="btn btn-ghost" type="button" id="f-reset">Limpiar</button>
+        </div>
+      </section>
+
+      <!-- 3. Catalog -->
+      <section class="panel" aria-labelledby="cat-title">
+        <div class="panel-head">
+          <h2 id="cat-title"><span class="panel-num">03</span> Catálogo</h2>
+          <p id="cat-summary">Cargando…</p>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary" type="button" id="publish" disabled>Publicar en la web</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="download">Descargar products.json</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="discard" hidden>Descartar cambios locales</button>
+        </div>
+        <p class="status" id="publish-status" role="status"></p>
+        <label class="field" style="margin-top:18px;">
+          <span class="visually-hidden">Filtrar catálogo</span>
+          <input type="search" id="cat-filter" placeholder="Filtrar por nombre o categoría…">
+        </label>
+        <ul class="item-list" id="item-list"></ul>
+      </section>
+    </div>
+
+    <aside class="admin-side">
+      <!-- Preview -->
+      <section class="panel sticky" aria-labelledby="prev-title">
+        <div class="panel-head"><h2 id="prev-title">Vista previa</h2></div>
+        <div id="preview"></div>
+      </section>
+
+      <!-- 4. Bookmarklet -->
+      <section class="panel" aria-labelledby="bm-title">
+        <div class="panel-head">
+          <h2 id="bm-title"><span class="panel-num">04</span> RFC Grab</h2>
+          <p>Arrastra este botón a tu barra de marcadores. Cuando estés en una ficha de Amazon, púlsalo: abre este panel con nombre, descripción, foto y enlace ya rellenos.</p>
+        </div>
+        <a class="btn btn-primary btn-sm bookmarklet" id="bookmarklet" href="#">➕ RFC Grab</a>
+        <p class="hint" style="margin-top:12px;">Entra primero en este panel (para que la sesión esté abierta) y luego usa el botón en Amazon.</p>
+      </section>
+
+      <!-- 5. GitHub -->
+      <section class="panel" aria-labelledby="gh-title">
+        <div class="panel-head">
+          <h2 id="gh-title"><span class="panel-num">05</span> Conexión con GitHub</h2>
+          <p>Necesaria para el botón <strong>Publicar</strong>. Crea un token <em>fine-grained</em> con acceso solo al repo <code>roomfindsclub</code> y permiso <strong>Contents: Read and write</strong>. Se guarda solo en este navegador.</p>
+        </div>
+        <label class="field">
+          <span>Token de GitHub</span>
+          <input type="password" id="gh-token" placeholder="github_pat_…" autocomplete="off">
+        </label>
+        <div class="row">
+          <button class="btn btn-ghost btn-sm" type="button" id="gh-save">Guardar y probar</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="gh-clear">Borrar token</button>
+        </div>
+        <p class="status" id="gh-status" role="status"></p>
+        <a class="text-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Crear token en GitHub →</a>
+      </section>
+    </aside>
+  </div>
+</div>

@@ -1,33 +1,30 @@
 # RoomFindsClub
 
-Catálogo de afiliados de Amazon para setups de escritorio y habitación. Sitio estático, publicado en GitHub Pages.
+Catálogo de afiliados de Amazon para setups de escritorio, gaming y habitación. Público: US/UK (web en inglés).
+Web: https://roomfindsclub.com
 
-## Estructura
+## Cómo funciona
 
-- `index.html` — portada con categorías y FAQ (SEO/GEO/AEO).
-- `catalogo.html` — catálogo filtrable por categoría (`?cat=slug`).
-- `producto.html` — ficha de producto (`?id=producto-id`). Sin precios ni estrellas: solo nombre, descripción y foto.
-- `favoritos.html` — favoritos guardados en el navegador (localStorage).
-- `admin.html` — panel privado (protegido por contraseña básica en el navegador, ver `js/admin.js`):
-  1. Convierte enlaces de Amazon en bruto a enlaces de afiliado con el tag `findsondesk-20`.
-  2. Formulario de producto con intento de autorrelleno desde el enlace (best-effort: Amazon bloquea el scraping a menudo, así que a veces hay que copiar los datos a mano desde la ficha).
-  3. Genera y descarga un `products.json` actualizado con los borradores añadidos.
-- `data/products.json` — catálogo de productos.
-- `js/config.js` — categorías y ajustes de marca.
-- `scripts/generate-sitemap.js` — regenera `sitemap.xml` a partir de `data/products.json`.
+- **`data/products.json`** — el catálogo. Es lo único que cambia en el día a día.
+- **`data/config.json`** — nombre, tags de afiliado, redes y las 18 categorías (con sus consejos de compra).
+- **`scripts/build.js`** — genera la web completa en `_site/` como HTML estático (cada producto y categoría tiene su propia página, visible para Google y para los crawlers de IA sin ejecutar JavaScript). Sin dependencias: `node scripts/build.js`.
+- **`.github/workflows/deploy.yml`** — en cada push a `main`, GitHub Actions ejecuta el build y publica en GitHub Pages. Si un producto tiene datos inválidos, el build se para y la web publicada no se toca.
+- **`assets/`** — CSS, JS, fuentes (alojadas aquí, sin Google Fonts) e imágenes.
 
-## Añadir productos
+## Añadir productos (panel admin: `/admin/`)
 
-1. Abre `admin.html` en el sitio publicado (o en local) e introduce la contraseña.
-2. Pega el enlace de Amazon, pulsa "Autorrellenar" y revisa/completa nombre, descripción e imagen.
-3. Pulsa "Añadir a borradores".
-4. Cuando tengas varios, pulsa "Descargar products.json actualizado" y sustituye el archivo `data/products.json` del repositorio (o pide a Claude que lo haga).
-5. Ejecuta `node scripts/generate-sitemap.js` para actualizar el sitemap y haz commit.
+1. En Amazon, en la ficha del producto, pulsa el marcador **RFC Grab** (se instala arrastrándolo desde el admin). Abre el admin con nombre, descripción, foto y enlace de afiliado ya rellenos.
+   - Alternativa: pega el enlace en el admin y pulsa *Autorrellenar* (Amazon suele bloquearlo) o rellena a mano.
+2. Elige categoría y pulsa **Guardar ficha**. Se queda en tu navegador como borrador.
+3. Pulsa **Publicar**: hace commit de `data/products.json` en GitHub y la web se reconstruye sola en 1–2 minutos.
 
-## Cambiar la contraseña del admin
+El botón Publicar necesita un token *fine-grained* de GitHub (solo este repo, permiso *Contents: Read and write*), que se guarda únicamente en tu navegador.
 
-Edita `ADMIN_PASSWORD` en `js/admin.js`. Es una barrera básica en el navegador, no seguridad real — no subas nada sensible al panel.
+## Seguridad del admin
 
-## Dominio
+El código no contiene ninguna contraseña. `/admin/` se protege con **Cloudflare Access** delante del dominio. El panel por sí solo no puede modificar nada sin tu token de GitHub.
 
-El archivo `CNAME` apunta a `roomfindsclub.com`. GitHub Pages sirve el sitio desde la rama configurada en Settings → Pages.
+## Reglas del catálogo
+
+- Las fichas muestran solo **nombre, descripción y foto**. Nunca precios ni estrellas.
+- Aviso de afiliado obligatorio en todas las páginas: "As an Amazon Associate I earn from qualifying purchases."

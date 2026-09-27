@@ -1,0 +1,188 @@
+{
+  "site": {
+    "name": "RoomFindsClub",
+    "tagline": "Room & Setup Finds",
+    "url": "https://roomfindsclub.com",
+    "language": "en",
+    "locale": "en_US",
+    "description": "Curated desk, gaming and room setup finds: desks, chairs, monitors, keyboards, audio, lighting and decor, organized by category so you can build your setup without the endless scrolling.",
+    "repo": "arda2292/roomfindsclub",
+    "affiliate": {
+      "tags": { "amazon.com": "findsondesk-20" },
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases."
+    },
+    "social": {
+      "instagram": "https://www.instagram.com/roomfindsclub/",
+      "tiktok": "https://www.tiktok.com/@roomfindsclub"
+    }
+  },
+  "groups": [
+    { "id": "desk", "name": "Desk setup" },
+    { "id": "gear", "name": "Gear & peripherals" },
+    { "id": "room", "name": "Room & vibe" }
+  ],
+  "categories": [
+    {
+      "slug": "desks", "name": "Desks", "group": "desk", "icon": "desk",
+      "description": "Standing desks, L-shaped desks and compact workstations to build your setup on.",
+      "tips": [
+        "Measure your room first: leave at least 90 cm (3 ft) behind the desk for your chair to move.",
+        "A depth of 60 cm (24 in) or more keeps a 27-inch monitor at a comfortable viewing distance.",
+        "For standing desks, dual motors are steadier and quieter than single-motor frames, especially at full height."
+      ]
+    },
+    {
+      "slug": "chairs", "name": "Chairs", "group": "desk", "icon": "chair",
+      "description": "Ergonomic office chairs and gaming chairs for long sessions at the desk.",
+      "tips": [
+        "Adjustable lumbar support matters more than looks for all-day comfort.",
+        "Mesh backs stay cooler; padded backs feel softer but trap heat.",
+        "Check the seat height range against your desk height so your elbows sit at roughly 90 degrees."
+      ]
+    },
+    {
+      "slug": "monitors", "name": "Monitors", "group": "gear", "icon": "monitor",
+      "description": "Gaming monitors, ultrawides and work displays for every desk size.",
+      "tips": [
+        "At 27 inches, 1440p is the sweet spot between sharpness and GPU load.",
+        "Refresh rate (Hz) matters for fast games; color accuracy matters for editing and design.",
+        "Look for VESA mount holes if you plan to use a monitor arm later."
+      ]
+    },
+    {
+      "slug": "keyboards", "name": "Keyboards", "group": "gear", "icon": "keyboard",
+      "description": "Mechanical, wireless and low-profile keyboards for typing and gaming.",
+      "tips": [
+        "Compact layouts (75%, TKL) free up desk space for wider mouse movements.",
+        "Hot-swappable boards let you change switches without soldering.",
+        "Linear switches are smooth and quiet-ish; clicky switches are loud — think about your roommates."
+      ]
+    },
+    {
+      "slug": "mice", "name": "Mice", "group": "gear", "icon": "mouse",
+      "description": "Gaming mice, ergonomic mice and vertical mice.",
+      "tips": [
+        "Match the shape to your grip: palm, claw or fingertip.",
+        "Lighter mice are easier to flick in shooters; heavier ones feel steadier for precise work.",
+        "A vertical mouse can ease wrist strain if you work at the computer all day."
+      ]
+    },
+    {
+      "slug": "desk-mats", "name": "Desk Mats & Mousepads", "group": "desk", "icon": "mat",
+      "description": "XL desk mats and mousepads that tie the whole setup together.",
+      "tips": [
+        "An XL mat (around 90 x 40 cm) fits both keyboard and mouse on one surface.",
+        "Stitched edges stop fraying over time.",
+        "Cloth surfaces offer control; hard surfaces offer speed."
+      ]
+    },
+    {
+      "slug": "headphones", "name": "Headphones & Headsets", "group": "gear", "icon": "headphones",
+      "description": "Gaming headsets, wireless headphones and noise-cancelling picks.",
+      "tips": [
+        "Open-back headphones sound more spacious but leak sound; closed-back keep it in.",
+        "If you game and take calls, a detachable or built-in mic saves buying a separate one.",
+        "Check clamping force and ear-pad material if you wear glasses or play for hours."
+      ]
+    },
+    {
+      "slug": "microphones", "name": "Microphones", "group": "gear", "icon": "mic",
+      "description": "USB and XLR microphones for streaming, calls and podcasts.",
+      "tips": [
+        "USB mics are plug-and-play; XLR mics need an audio interface but are easier to upgrade.",
+        "Dynamic mics pick up less room noise than condenser mics — great for untreated rooms.",
+        "A boom arm gets the mic closer to your mouth and off the desk."
+      ]
+    },
+    {
+      "slug": "speakers", "name": "Speakers & Audio", "group": "gear", "icon": "speaker",
+      "description": "Desktop speakers, soundbars and small subwoofers.",
+      "tips": [
+        "Angle desktop speakers toward your ears — stands or foam pads make a real difference.",
+        "Bluetooth is convenient; a wired connection avoids lag in games.",
+        "Compact bookshelf speakers usually beat a small soundbar for music at the desk."
+      ]
+    },
+    {
+      "slug": "webcams", "name": "Webcams & Streaming", "group": "gear", "icon": "webcam",
+      "description": "Webcams, capture cards and stream controllers for creators.",
+      "tips": [
+        "Lighting improves image quality more than jumping from 1080p to 4K.",
+        "Autofocus and auto exposure help if you move around on stream.",
+        "A stream controller with programmable keys speeds up scene switching."
+      ]
+    },
+    {
+      "slug": "lighting", "name": "Lighting", "group": "room", "icon": "light",
+      "description": "Monitor light bars, LED strips, desk lamps and ambient lights.",
+      "tips": [
+        "A monitor light bar lights the desk without glare on the screen.",
+        "Bias lighting behind the monitor reduces eye strain in dark rooms.",
+        "Smart lights with app or voice control make it easy to switch between work and chill modes."
+      ]
+    },
+    {
+      "slug": "monitor-arms", "name": "Monitor Arms & Stands", "group": "desk", "icon": "arm",
+      "description": "Monitor arms, laptop stands and risers for a cleaner, more ergonomic desk.",
+      "tips": [
+        "Check the arm's weight rating against your monitor — ultrawides are heavier than they look.",
+        "Gas-spring arms move smoothly; fixed arms are cheaper but fiddlier to adjust.",
+        "Confirm your desk thickness works with the clamp or grommet mount."
+      ]
+    },
+    {
+      "slug": "cable-management", "name": "Cable Management", "group": "desk", "icon": "cable",
+      "description": "Cable trays, sleeves, clips and under-desk solutions for a clean look.",
+      "tips": [
+        "An under-desk tray hides the power strip and most of the mess in one step.",
+        "Adhesive clips work on smooth surfaces; screw-in mounts last longer.",
+        "Braided sleeves bundle cables running down the desk leg."
+      ]
+    },
+    {
+      "slug": "desk-organization", "name": "Desk Organization", "group": "desk", "icon": "storage",
+      "description": "Organizers, shelves, headphone stands and drawers to keep the desk clear.",
+      "tips": [
+        "A desk shelf or monitor riser doubles your usable surface.",
+        "Headphone stands and under-desk hooks get gear off the desk.",
+        "Keep daily-use items within arm's reach and store the rest out of sight."
+      ]
+    },
+    {
+      "slug": "pc-components", "name": "PC & Components", "group": "gear", "icon": "cpu",
+      "description": "Cases, cooling, fans and components for building or upgrading a PC.",
+      "tips": [
+        "Check case clearance for GPU length and cooler height before buying.",
+        "More case fans help, but airflow direction (front in, back and top out) matters more.",
+        "Check which CPU socket your motherboard uses before buying a cooler or CPU."
+      ]
+    },
+    {
+      "slug": "gaming", "name": "Consoles & Controllers", "group": "gear", "icon": "gamepad",
+      "description": "Consoles, controllers, charging docks and gaming accessories.",
+      "tips": [
+        "A charging dock keeps controllers ready and off the desk.",
+        "Check platform compatibility — many controllers work on PC but not every console.",
+        "Wall mounts and stands turn consoles into part of the room decor."
+      ]
+    },
+    {
+      "slug": "room-decor", "name": "Room Decor", "group": "room", "icon": "frame",
+      "description": "Wall art, neon signs, rugs, plants and pieces that give the room its vibe.",
+      "tips": [
+        "Pick two or three accent colors and repeat them across lights, art and textiles.",
+        "Wall-mounted decor keeps the desk clear and adds depth to your camera background.",
+        "A rug under the desk area defines the setup zone and softens echo on calls."
+      ]
+    },
+    {
+      "slug": "collectibles", "name": "Figures & Collectibles", "group": "room", "icon": "star",
+      "description": "Anime figures, collectibles and display cases for your shelves.",
+      "tips": [
+        "Buy from official or licensed sellers to avoid bootleg figures.",
+        "A display case with LED lighting protects figures from dust and makes them pop.",
+        "Keep figures out of direct sunlight to avoid paint fading."
+      ]
+    }
+  ]
+}
