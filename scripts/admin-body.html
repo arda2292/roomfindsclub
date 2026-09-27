@@ -11,18 +11,32 @@
       <!-- 1. Link converter -->
       <section class="panel" aria-labelledby="conv-title">
         <div class="panel-head">
-          <h2 id="conv-title"><span class="panel-num">01</span> Convertir enlaces a afiliado</h2>
-          <p>Pega uno o varios enlaces de Amazon, uno por línea. Se limpian (se quita todo el rastreo) y se les pone tu tag.</p>
+          <h2 id="conv-title"><span class="panel-num">01</span> Enlaces → fichas</h2>
+          <p>Pega uno o varios enlaces de Amazon, uno por línea. Se convierten a tu enlace de afiliado y, si eliges categoría, se crean las fichas de todos de una vez.</p>
         </div>
         <label class="field">
           <span>Enlaces en bruto</span>
           <textarea id="conv-input" rows="5" placeholder="https://www.amazon.com/Some-Product/dp/B0XXXXXXXX/ref=sr_1_3?keywords=..."></textarea>
         </label>
+        <label class="field">
+          <span>Categoría para estos productos <small>(necesaria para crear las fichas en bloque)</small></span>
+          <select id="bulk-cat"></select>
+        </label>
         <div class="row">
-          <button class="btn btn-primary btn-sm" type="button" id="conv-run">Convertir</button>
+          <button class="btn btn-primary btn-sm" type="button" id="bulk-run">⚡ Crear todas las fichas</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="conv-run">Solo convertir enlaces</button>
           <button class="btn btn-ghost btn-sm" type="button" id="conv-copy-all" hidden>Copiar todos</button>
         </div>
+        <p class="status" id="bulk-status" role="status"></p>
         <ul class="conv-results" id="conv-results"></ul>
+        <div class="queue" id="queue" hidden>
+          <div class="queue-head">
+            <strong id="queue-title">Pendientes de RFC Grab</strong>
+            <button class="btn btn-ghost btn-sm" type="button" id="queue-clear">Vaciar cola</button>
+          </div>
+          <p class="hint">Amazon ha bloqueado la lectura automática de estos. Pulsa <strong>Abrir en Amazon</strong> y, en la ficha, tu marcador <strong>RFC Grab</strong>: la ficha se guarda sola con su categoría.</p>
+          <ul class="conv-results" id="queue-list"></ul>
+        </div>
       </section>
 
       <!-- 2. Product form -->

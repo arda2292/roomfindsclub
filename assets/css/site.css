@@ -298,3 +298,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; letter-spacing
   .item { flex-wrap: wrap; }
   .item-actions { width: 100%; justify-content: flex-end; }
 }
+.conv-row.done span { color: var(--lime); font-size: 13px; }
+.conv-row > span:not(.row) { font-size: 13px; color: var(--muted); }
+.queue { margin-top: 20px; padding: 16px; border: 1px dashed var(--lime); border-radius: var(--radius-sm); background: var(--lime-soft); }
+.queue-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.queue .conv-row { background: var(--bg); }

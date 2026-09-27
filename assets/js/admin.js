@@ -9,6 +9,7 @@
 
   var STATE_KEY = "rfc_admin_changes";   // { upserts: {id: product}, deleted: [id] }
   var TOKEN_KEY = "rfc_admin_gh_token";
+  var QUEUE_KEY = "rfc_admin_queue";     // [{ asin, link, category }] waiting for RFC Grab
   var DATA_PATH = "data/products.json";
 
   var CFG, CATS = {}, published = [], publishedSha = null;
@@ -255,17 +256,32 @@
     return { name: name, image: image, description: description };
   }
 
+  /* Amazon blocks direct browser requests (CORS), so we go through public proxies.
+     Amazon often answers them with a captcha — then the RFC Grab bookmarklet takes over. */
+  var PROXIES = [
+    function (u) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u); },
+    function (u) { return "https://corsproxy.io/?url=" + encodeURIComponent(u); }
+  ];
+
+  function fetchAmazon(pageUrl) {
+    var i = 0;
+    function attempt() {
+      if (i >= PROXIES.length) return Promise.reject(new Error("blocked"));
+      var ctrl = new AbortController(), timer = setTimeout(function () { ctrl.abort(); }, 12000);
+      return fetch(PROXIES[i++](pageUrl), { signal: ctrl.signal })
+        .then(function (r) { if (!r.ok) throw new Error("proxy"); return r.text(); })
+        .then(function (html) { clearTimeout(timer); return parseAmazonHtml(html); })
+        .catch(function () { clearTimeout(timer); return attempt(); });
+    }
+    return attempt();
+  }
+
   function autofill() {
     var status = $("f-autofill-status"), conv = convert($("f-link").value);
     if (!conv || !conv.ok) { setStatus(status, "Pega antes un enlace de Amazon válido.", "error"); return; }
     setStatus(status, "Leyendo la ficha de Amazon…", "");
-    var target = "https://www.amazon.com/dp/" + conv.asin;
-    var ctrl = new AbortController(), timer = setTimeout(function () { ctrl.abort(); }, 12000);
-    fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(target), { signal: ctrl.signal })
-      .then(function (r) { if (!r.ok) throw new Error("proxy"); return r.text(); })
-      .then(parseAmazonHtml)
+    fetchAmazon(conv.output.split("?")[0])
       .then(function (d) {
-        clearTimeout(timer);
         $("f-name").value = d.name;
         if (d.description) $("f-desc").value = d.description;
         if (d.image) $("f-image").value = d.image;
@@ -273,9 +289,97 @@
         setStatus(status, "Rellenado. Revisa los campos antes de guardar.", "ok");
       })
       .catch(function () {
-        clearTimeout(timer);
         setStatus(status, "Amazon ha bloqueado la lectura automática. Abre la ficha en Amazon y pulsa el botón RFC Grab.", "error");
       });
+  }
+
+  /* Save a complete product straight to the local changes (no form). Returns the product or null. */
+  function saveDraftDirect(d, link, category) {
+    var conv = convert(link);
+    if (!conv || !conv.ok) return null;
+    var editingBackup = editingId; editingId = null;
+    var p = {
+      id: uniqueId(slugify(d.name || "")),
+      name: (d.name || "").trim(),
+      description: (d.description || "").trim(),
+      image: (d.image || "").trim(),
+      category: category,
+      affiliateLink: conv.output,
+      dateAdded: today()
+    };
+    editingId = editingBackup;
+    if (validate(p, current(), null)) return null;
+    var c = changes();
+    c.upserts[p.id] = p;
+    saveChanges(c);
+    return p;
+  }
+
+  /* ---------------- bulk: links → drafts ---------------- */
+  function queue() { return load(QUEUE_KEY, []); }
+  function saveQueue(q) { store(QUEUE_KEY, q); renderQueue(); }
+
+  function renderQueue() {
+    var q = queue();
+    $("queue").hidden = q.length === 0;
+    $("queue-title").textContent = q.length + " pendiente" + (q.length === 1 ? "" : "s") + " de RFC Grab";
+    $("queue-list").innerHTML = q.map(function (it) {
+      return '<li class="conv-row"><code>' + esc(it.asin) + " · " + esc(CATS[it.category] ? CATS[it.category].name : it.category) + '</code><span class="row">' +
+        '<a class="btn btn-primary btn-sm" href="' + esc(it.link.split("?")[0]) + '" target="rfc-amazon">Abrir en Amazon</a>' +
+        '<button class="btn btn-ghost btn-sm" data-unqueue="' + esc(it.asin) + '">Quitar</button></span></li>';
+    }).join("");
+  }
+
+  function bulkRun() {
+    var status = $("bulk-status"), category = $("bulk-cat").value;
+    var results = $("conv-input").value.split(/\s+/).filter(Boolean).map(convert).filter(Boolean);
+    if (!results.length) { setStatus(status, "Pega al menos un enlace.", "error"); return; }
+    if (!category) { setStatus(status, "Elige la categoría para estos productos.", "error"); $("bulk-cat").focus(); return; }
+
+    var existing = current().map(function (p) { var m = p.affiliateLink.match(/\/dp\/([A-Z0-9]{10})/); return m ? m[1] : null; });
+    var rows = results.map(function (r) {
+      if (!r.ok) return { r: r, state: "error", msg: r.error };
+      if (existing.indexOf(r.asin) !== -1) return { r: r, state: "skip", msg: "Ya está en tu catálogo" };
+      if (queue().some(function (q) { return q.asin === r.asin; })) return { r: r, state: "skip", msg: "Ya está en la cola" };
+      return { r: r, state: "pending", msg: "En espera…" };
+    });
+
+    function paint() {
+      $("conv-results").innerHTML = rows.map(function (x) {
+        var cls = x.state === "error" || x.state === "blocked" ? " error" : x.state === "done" ? " done" : "";
+        return '<li class="conv-row' + cls + '"><code>' + esc(x.r.ok ? x.r.output : x.r.input) + "</code><span>" + esc(x.msg) + "</span></li>";
+      }).join("");
+    }
+    paint();
+    $("bulk-run").disabled = true;
+
+    var todo = rows.filter(function (x) { return x.state === "pending"; });
+    var created = 0, blocked = 0, idx = 0;
+    function next() {
+      if (idx >= todo.length) {
+        $("bulk-run").disabled = false;
+        renderList();
+        var parts = [];
+        if (created) parts.push(created + " ficha" + (created === 1 ? "" : "s") + " creada" + (created === 1 ? "" : "s"));
+        if (blocked) parts.push(blocked + " a la cola de RFC Grab");
+        setStatus(status, parts.length ? parts.join(" · ") + "." + (created ? " Revisa el catálogo y pulsa Publicar." : "") : "Nada nuevo que crear.", created ? "ok" : "");
+        return;
+      }
+      var x = todo[idx++];
+      x.msg = "Leyendo ficha…"; paint();
+      setStatus(status, "Procesando " + idx + " de " + todo.length + "…", "");
+      fetchAmazon(x.r.output.split("?")[0]).then(function (d) {
+        var p = saveDraftDirect(d, x.r.output, category);
+        if (!p) throw new Error("incomplete");
+        x.state = "done"; x.msg = "✔ " + p.name; created++;
+      }).catch(function () {
+        var q = queue();
+        q.push({ asin: x.r.asin, link: x.r.output, category: category });
+        saveQueue(q);
+        x.state = "blocked"; x.msg = "Bloqueado → cola RFC Grab"; blocked++;
+      }).then(function () { paint(); next(); });
+    }
+    next();
   }
 
   function importFromHash() {
@@ -284,6 +388,23 @@
     try {
       var d = JSON.parse(b64decode(decodeURIComponent(m[1])));
       history.replaceState(null, "", location.pathname);
+
+      // Came from the RFC Grab queue? Save it straight away with the category chosen in bulk.
+      var conv = convert(d.url), q = queue();
+      var hit = conv && conv.ok ? q.filter(function (it) { return it.asin === conv.asin; })[0] : null;
+      if (hit) {
+        var p = saveDraftDirect(d, hit.link, hit.category);
+        if (p) {
+          saveQueue(q.filter(function (it) { return it.asin !== hit.asin; }));
+          renderList();
+          var left = queue().length;
+          setStatus($("bulk-status"), "✔ Guardada: " + p.name + (left ? " · quedan " + left + " en la cola" : " · cola terminada, ya puedes Publicar"), "ok");
+          flash(left ? "Guardada. Quedan " + left + " — abre el siguiente." : "¡Cola terminada! Pulsa Publicar.");
+          $("conv-title").scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+
       resetForm();
       fillForm({ affiliateLink: d.url, name: d.name, description: d.description, image: d.image }, false);
       onNameInput();
@@ -446,7 +567,7 @@
       var bytes = new TextEncoder().encode(JSON.stringify(data)), bin = "";
       for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
       var url = ORIGIN + "/admin/#import=" + encodeURIComponent(btoa(bin));
-      if (!window.open(url, "_blank")) location.href = url;
+      if (!window.open(url, "rfc-admin")) location.href = url;
     };
     var code = "(" + fn.toString().replace(/\s+/g, " ") + ")(" + JSON.stringify(origin) + ");void 0";
     return "javascript:" + encodeURIComponent(code);
@@ -465,11 +586,27 @@
     fetch("/data/config.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (cfg) {
       CFG = cfg;
       cfg.categories.forEach(function (c) { CATS[c.slug] = c; });
-      $("f-cat").innerHTML = '<option value="">— Elige categoría —</option>' + cfg.groups.map(function (g) {
+      var catOptions = '<option value="">— Elige categoría —</option>' + cfg.groups.map(function (g) {
         return '<optgroup label="' + esc(g.name) + '">' + cfg.categories.filter(function (c) { return c.group === g.id; }).map(function (c) {
           return '<option value="' + c.slug + '">' + esc(c.name) + "</option>";
         }).join("") + "</optgroup>";
       }).join("");
+      $("f-cat").innerHTML = catOptions;
+      $("bulk-cat").innerHTML = catOptions;
+
+      // Name this tab so the RFC Grab bookmarklet reuses it instead of opening a new one each time.
+      window.name = "rfc-admin";
+      $("bulk-run").addEventListener("click", bulkRun);
+      $("queue-list").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-unqueue]"); if (!b) return;
+        saveQueue(queue().filter(function (it) { return it.asin !== b.dataset.unqueue; }));
+      });
+      $("queue-clear").addEventListener("click", function () {
+        if ($("queue-clear").dataset.confirm !== "1") { $("queue-clear").dataset.confirm = "1"; $("queue-clear").textContent = "¿Seguro?"; return; }
+        $("queue-clear").dataset.confirm = ""; $("queue-clear").textContent = "Vaciar cola";
+        saveQueue([]);
+      });
+      renderQueue();
 
       $("bookmarklet").href = bookmarkletCode();
       $("bookmarklet").addEventListener("click", function (e) { e.preventDefault(); flash("Arrástralo a tu barra de marcadores — no hace falta pulsarlo aquí."); });
