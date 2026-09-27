@@ -200,11 +200,17 @@ function productCard(p) {
 </article>`;
 }
 
+/* Category photo: assets/img/categories/<slug>.(webp|jpg|png). Falls back to the icon until one is added. */
+function categoryImage(slug) {
+  const ext = ["webp", "jpg", "png"].find((e) => fs.existsSync(path.join(ROOT, "assets/img/categories", `${slug}.${e}`)));
+  return ext ? `/assets/img/categories/${slug}.${ext}` : null;
+}
+
 function categoryCard(c) {
-  const n = byCat(c.slug).length;
+  const img = categoryImage(c.slug);
   return `<a class="cat-card" href="/category/${c.slug}/">
-  <span class="cat-icon">${icon(c.icon)}</span>
-  <div><h3>${esc(c.name)}</h3><span class="count">${n ? `${n} find${n === 1 ? "" : "s"}` : "Coming soon"}</span></div>
+  <span class="cat-media">${img ? `<img src="${img}" alt="" loading="lazy" decoding="async" width="600" height="600">` : icon(c.icon)}</span>
+  <span class="cat-label"><h3>${esc(c.name)}</h3>${icon("arrow")}</span>
 </a>`;
 }
 
@@ -277,7 +283,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="can
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/saira.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css?v=${ASSET_V}">
 ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j).replace(/</g, "\\u003c")}</script>`).join("\n")}
@@ -516,7 +522,7 @@ function pageCategory(c) {
   ${chipsRow(c.slug)}
   ${items.length
     ? `<div class="product-grid">${items.map(productCard).join("\n")}</div>`
-    : emptyState(`${c.name} finds are coming`, "This category is being curated right now. Meanwhile, the buying tips below will help you know what to look for.", `<a class="btn btn-ghost" href="/catalog/">Browse all finds</a>`)}
+    : emptyState(`Shopping for ${c.name.toLowerCase()}?`, "Start with the buying tips below, then browse the rest of the setup finds.", `<a class="btn btn-ghost" href="/catalog/">Browse all finds</a>`)}
 </div>
 <section class="section" aria-labelledby="tips-title">
   <div class="container">
@@ -529,6 +535,7 @@ function pageCategory(c) {
     title: `${c.name} for Your Setup | ${SITE.name}`,
     description: metaDescription(`${c.description} ${items.length ? `${items.length} curated finds` : "Curated finds"} plus tips on what to look for.`),
     path: `/category/${c.slug}/`,
+    noindex: !items.length,
     active: "categories",
     body,
     jsonld: [
@@ -655,7 +662,7 @@ function sitemap() {
   const urls = [
     { loc: "/", priority: "1.0", lastmod: BUILD_DATE },
     { loc: "/catalog/", priority: "0.9", lastmod: BUILD_DATE },
-    ...CATS.map((c) => ({ loc: `/category/${c.slug}/`, priority: "0.8", lastmod: BUILD_DATE })),
+    ...CATS.filter((c) => byCat(c.slug).length).map((c) => ({ loc: `/category/${c.slug}/`, priority: "0.8", lastmod: BUILD_DATE })),
     ...PRODUCTS.map((p) => ({ loc: `/product/${p.id}/`, priority: "0.7", lastmod: p.dateUpdated || p.dateAdded || BUILD_DATE }))
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>

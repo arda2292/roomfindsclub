@@ -75,6 +75,9 @@
     return { ok: true, input: raw, asin: asin, output: "https://www." + t.domain + "/dp/" + asin + "?tag=" + t.tag };
   }
 
+  /* The site is in English: always read Amazon pages in English, whatever language the account uses. */
+  function englishUrl(link) { return link.split("?")[0] + "?language=en_US"; }
+
   /* ---------------- catalog state ---------------- */
   function changes() { return load(STATE_KEY, { upserts: {}, deleted: [] }); }
   function saveChanges(c) { store(STATE_KEY, c); }
@@ -253,6 +256,7 @@
     var doc = new DOMParser().parseFromString(html, "text/html");
     var q = function (sel) { return doc.querySelector(sel); };
     if (q("form[action*='validateCaptcha']")) throw new Error("captcha");
+    if (!/^en/i.test(doc.documentElement.getAttribute("lang") || "en")) throw new Error("lang");
     var name = q("#productTitle") ? q("#productTitle").textContent.trim() : "";
     var img = q("#landingImage") || q("#imgTagWrapperId img");
     var image = "";
@@ -295,7 +299,7 @@
     var status = $("f-autofill-status"), conv = convert($("f-link").value);
     if (!conv || !conv.ok) { setStatus(status, "Pega antes un enlace de Amazon válido.", "error"); return; }
     setStatus(status, "Leyendo la ficha de Amazon…", "");
-    fetchAmazon(conv.output.split("?")[0])
+    fetchAmazon(englishUrl(conv.output))
       .then(function (d) {
         $("f-name").value = d.name;
         if (d.description) $("f-desc").value = d.description;
@@ -340,7 +344,7 @@
     $("queue-title").textContent = q.length + " pendiente" + (q.length === 1 ? "" : "s") + " de RFC Grab";
     $("queue-list").innerHTML = q.map(function (it) {
       return '<li class="conv-row"><code>' + esc(it.asin) + " · " + esc(CATS[it.category] ? CATS[it.category].name : it.category) + '</code><span class="row">' +
-        '<a class="btn btn-primary btn-sm" href="' + esc(it.link.split("?")[0]) + '" target="rfc-amazon">Abrir en Amazon</a>' +
+        '<a class="btn btn-primary btn-sm" href="' + esc(englishUrl(it.link)) + '" target="rfc-amazon">Abrir en Amazon</a>' +
         '<button class="btn btn-ghost btn-sm" data-unqueue="' + esc(it.asin) + '">Quitar</button></span></li>';
     }).join("");
   }
@@ -383,7 +387,7 @@
       var x = todo[idx++];
       x.msg = "Leyendo ficha…"; paint();
       setStatus(status, "Procesando " + idx + " de " + todo.length + "…", "");
-      fetchAmazon(x.r.output.split("?")[0]).then(function (d) {
+      fetchAmazon(englishUrl(x.r.output)).then(function (d) {
         var p = saveDraftDirect(d, x.r.output, category);
         if (!p) throw new Error("incomplete");
         x.state = "done"; x.msg = "✔ " + p.name; created++;
@@ -403,6 +407,17 @@
     try {
       var d = JSON.parse(b64decode(decodeURIComponent(m[1])));
       history.replaceState(null, "", location.pathname);
+
+      // Only English data: older bookmarklets don't say which language they read, so ask to reinstall.
+      if (!d.lang || !/^en/i.test(d.lang)) {
+        var msg = d.lang
+          ? "Amazon devolvió la ficha en otro idioma. Cambia el idioma de Amazon a English y vuelve a pulsar RFC Grab."
+          : "Tu marcador RFC Grab está desactualizado. Bórralo y arrastra de nuevo el botón de la sección 04.";
+        setStatus($("f-autofill-status"), msg, "error");
+        setStatus($("bulk-status"), msg, "error");
+        flash(msg);
+        return;
+      }
 
       var conv = convert(d.url), q = queue();
 
@@ -588,25 +603,42 @@
   /* ---------------- bookmarklet ---------------- */
   function bookmarkletCode() {
     var origin = location.origin;
+    /* Reads the product in English: if the Amazon page is shown in another language,
+       it fetches the same product with ?language=en_US (same origin, so no captcha/CORS). */
     var fn = function (ORIGIN) {
-      var $q = function (s) { return document.querySelector(s); };
-      var t = $q("#productTitle");
-      if (!t) { alert("RFC Grab: abre la ficha de un producto de Amazon."); return; }
-      var img = $q("#landingImage") || $q("#imgTagWrapperId img"), image = "";
-      if (img) {
-        image = img.getAttribute("data-old-hires") || "";
-        if (!image) { try { var d = JSON.parse(img.getAttribute("data-a-dynamic-image") || "{}"); image = Object.keys(d).sort(function (a, b) { return d[b][0] - d[a][0]; })[0]; } catch (e) {} }
-        if (!image) image = img.src;
-      }
-      var bl = [].slice.call(document.querySelectorAll("#feature-bullets li span.a-list-item")).map(function (s) { return s.textContent.trim(); }).filter(Boolean);
-      var pd = $q("#productDescription");
-      var asinEl = $q("#ASIN") || $q("input[name='ASIN']");
+      if (!document.querySelector("#productTitle")) { alert("RFC Grab: abre la ficha de un producto de Amazon."); return; }
+      var asinEl = document.querySelector("#ASIN") || document.querySelector("input[name='ASIN']");
       var asin = (asinEl && asinEl.value) || ((location.pathname.match(/\/dp\/([A-Z0-9]{10})/i) || [])[1]) || "";
-      var data = { name: t.textContent.trim(), image: image, description: bl.length ? bl.map(function (b) { return "- " + b; }).join("\n") : (pd ? pd.textContent.trim() : ""), url: location.origin + "/dp/" + asin };
-      var bytes = new TextEncoder().encode(JSON.stringify(data)), bin = "";
-      for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-      var url = ORIGIN + "/admin/#import=" + encodeURIComponent(btoa(bin));
-      if (!window.open(url, "rfc-admin")) location.href = url;
+      var grab = function (doc) {
+        var $q = function (s) { return doc.querySelector(s); };
+        var t = $q("#productTitle");
+        if (!t) return null;
+        var img = $q("#landingImage") || $q("#imgTagWrapperId img"), image = "";
+        if (img) {
+          image = img.getAttribute("data-old-hires") || "";
+          if (!image) { try { var d = JSON.parse(img.getAttribute("data-a-dynamic-image") || "{}"); image = Object.keys(d).sort(function (a, b) { return d[b][0] - d[a][0]; })[0]; } catch (e) {} }
+          if (!image) image = img.getAttribute("src") || "";
+        }
+        var bl = [].slice.call(doc.querySelectorAll("#feature-bullets li span.a-list-item")).map(function (s) { return s.textContent.trim(); }).filter(Boolean);
+        var pd = $q("#productDescription");
+        return { v: 2, lang: doc.documentElement.getAttribute("lang") || "", name: t.textContent.trim(), image: image, description: bl.length ? bl.map(function (b) { return "- " + b; }).join("\n") : (pd ? pd.textContent.trim() : ""), url: location.origin + "/dp/" + asin };
+      };
+      var send = function (data, win) {
+        var bytes = new TextEncoder().encode(JSON.stringify(data)), bin = "";
+        for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+        var url = ORIGIN + "/admin/#import=" + encodeURIComponent(btoa(bin));
+        if (win) win.location.href = url; else if (!window.open(url, "rfc-admin")) location.href = url;
+      };
+      if (/^en/i.test(document.documentElement.getAttribute("lang") || "")) { send(grab(document)); return; }
+      var win = window.open("", "rfc-admin");
+      fetch(location.origin + "/dp/" + asin + "?language=en_US", { credentials: "include" })
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var data = grab(new DOMParser().parseFromString(html, "text/html"));
+          if (!data || !/^en/i.test(data.lang)) throw new Error("lang");
+          send(data, win);
+        })
+        .catch(function () { alert("RFC Grab: no he podido leer la ficha en inglés. Cambia el idioma de Amazon a English (arriba a la derecha) y vuelve a pulsar."); });
     };
     var code = "(" + fn.toString().replace(/\s+/g, " ") + ")(" + JSON.stringify(origin) + ");void 0";
     return "javascript:" + encodeURIComponent(code);
