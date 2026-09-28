@@ -136,9 +136,9 @@
             '<button class="fav-btn" type="button" data-fav="' + esc(p.id) + '" aria-pressed="true" aria-label="Remove from favorites">' +
             '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>' +
             '<a class="card-media" href="/product/' + encodeURIComponent(p.id) + '/" tabindex="-1" aria-hidden="true">' +
-            '<img src="' + esc(p.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer"></a>' +
+            '<img src="' + esc(p.image) + '" alt="' + esc(p.displayName || p.name) + '" loading="lazy" referrerpolicy="no-referrer"></a>' +
             '<div class="card-body"><span class="card-cat">' + esc(cats[p.category] || p.category) + '</span>' +
-            '<h3 class="card-title"><a href="/product/' + encodeURIComponent(p.id) + '/">' + esc(p.name) + '</a></h3></div>' +
+            '<h3 class="card-title"><a href="/product/' + encodeURIComponent(p.id) + '/">' + esc(p.displayName || p.name) + '</a></h3></div>' +
             '</article>';
         }).join("");
         grid.hidden = items.length === 0;
