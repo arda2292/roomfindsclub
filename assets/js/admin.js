@@ -170,6 +170,7 @@
       id: $("f-id").value.trim(),
       name: $("f-name").value.trim(),
       description: $("f-desc").value.trim(),
+      brand: $("f-brand").value.trim(),
       image: $("f-image").value.trim(),
       category: $("f-cat").value,
       affiliateLink: conv && conv.ok ? conv.output : ""
@@ -206,6 +207,7 @@
     $("f-name").value = p.name || "";
     $("f-desc").value = p.description || "";
     $("f-image").value = p.image || "";
+    $("f-brand").value = p.brand || "";
     if (p.category && CATS[p.category]) $("f-cat").value = p.category;
     $("f-id").value = isEdit ? p.id : uniqueId(slugify(p.name || ""));
     $("f-id").readOnly = !!(isEdit && published.some(function (x) { return x.id === p.id; }));
@@ -252,6 +254,16 @@
   }
 
   /* ---------------- autofill ---------------- */
+  /* Brand from the product overview table, or the "Visit the X Store" / "Brand: X" byline. */
+  function amazonBrand(doc) {
+    var po = doc.querySelector("tr.po-brand td:last-child");
+    if (po && po.textContent.trim()) return po.textContent.trim();
+    var by = doc.querySelector("#bylineInfo");
+    var t = by ? by.textContent.replace(/\s+/g, " ").trim() : "";
+    var m = t.match(/^Visit the (.+?) Store$/i) || t.match(/^Brand:\s*(.+)$/i);
+    return m ? m[1].trim() : "";
+  }
+
   function parseAmazonHtml(html) {
     var doc = new DOMParser().parseFromString(html, "text/html");
     var q = function (sel) { return doc.querySelector(sel); };
@@ -272,7 +284,7 @@
     var bullets = Array.prototype.map.call(doc.querySelectorAll("#feature-bullets li span.a-list-item"), function (s) { return s.textContent.trim(); }).filter(Boolean);
     var description = bullets.length ? bullets.map(function (b) { return "- " + b; }).join("\n") : (q("#productDescription") ? q("#productDescription").textContent.trim() : "");
     if (!name) throw new Error("empty");
-    return { name: name, image: image, description: description };
+    return { name: name, image: image, description: description, brand: amazonBrand(doc) };
   }
 
   /* Amazon blocks direct browser requests (CORS), so we go through public proxies.
@@ -304,6 +316,7 @@
         $("f-name").value = d.name;
         if (d.description) $("f-desc").value = d.description;
         if (d.image) $("f-image").value = d.image;
+        if (d.brand) $("f-brand").value = d.brand;
         onNameInput();
         setStatus(status, "Rellenado. Revisa los campos antes de guardar.", "ok");
       })
@@ -322,6 +335,7 @@
       name: (d.name || "").trim(),
       description: (d.description || "").trim(),
       image: (d.image || "").trim(),
+      brand: (d.brand || "").trim(),
       category: category,
       affiliateLink: conv.output,
       dateAdded: today()
@@ -447,7 +461,7 @@
       }
 
       resetForm();
-      fillForm({ affiliateLink: d.url, name: d.name, description: d.description, image: d.image }, false);
+      fillForm({ affiliateLink: d.url, name: d.name, description: d.description, image: d.image, brand: d.brand }, false);
       onNameInput();
       $("form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
       setStatus($("f-autofill-status"), "Datos importados desde Amazon. Elige la categoría y guarda.", "ok");
@@ -521,6 +535,7 @@
   function cleanForPublish(items) {
     return items.map(function (p) {
       var o = { id: p.id, name: p.name, description: p.description || "", image: p.image, category: p.category, affiliateLink: p.affiliateLink, dateAdded: p.dateAdded || today() };
+      if (p.brand) o.brand = p.brand;
       if (p.dateUpdated) o.dateUpdated = p.dateUpdated;
       return o;
     });
@@ -621,7 +636,10 @@
         }
         var bl = [].slice.call(doc.querySelectorAll("#feature-bullets li span.a-list-item")).map(function (s) { return s.textContent.trim(); }).filter(Boolean);
         var pd = $q("#productDescription");
-        return { v: 2, lang: doc.documentElement.getAttribute("lang") || "", name: t.textContent.trim(), image: image, description: bl.length ? bl.map(function (b) { return "- " + b; }).join("\n") : (pd ? pd.textContent.trim() : ""), url: location.origin + "/dp/" + asin };
+        var po = $q("tr.po-brand td:last-child"), by = $q("#bylineInfo"), bt = by ? by.textContent.replace(/\s+/g, " ").trim() : "";
+        var bm = bt.match(/^Visit the (.+?) Store$/i) || bt.match(/^Brand:\s*(.+)$/i);
+        var brand = (po && po.textContent.trim()) || (bm ? bm[1].trim() : "");
+        return { v: 2, brand: brand, lang: doc.documentElement.getAttribute("lang") || "", name: t.textContent.trim(), image: image, description: bl.length ? bl.map(function (b) { return "- " + b; }).join("\n") : (pd ? pd.textContent.trim() : ""), url: location.origin + "/dp/" + asin };
       };
       var send = function (data, win) {
         var bytes = new TextEncoder().encode(JSON.stringify(data)), bin = "";
