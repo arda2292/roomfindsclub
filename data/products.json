@@ -1645,5 +1645,25 @@
     "affiliateLink": "https://www.amazon.com/dp/B0DNHHGKMJ?tag=findsondesk-20",
     "dateAdded": "2026-09-28",
     "brand": "Razer"
+  },
+  {
+    "id": "sony-playstation-5-ps5-disc-version-gaming-console",
+    "name": "Sony PlayStation 5 PS5 Disc Version Gaming Console",
+    "description": "- CPU: x86-64-AMD Ryzen Zen 8 Cores / 16 Threads at 3.5GHz.GPU: AMD Radeon RDNA 2-based graphics engine.\n- 16GB GDDR6/256-bit Memory; 825GB SSD Storage Capacity\n- Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T), IEEE 802.11 a/b/g/n/ac/ax, Bluetooth 5.1\n- HDR technology, 8K output, 4K TV gaming, Up to 120 fps with 120Hz output, Tempest 3D AudioTech\n- What's Included: Sony PlayStation 5 Disc Version; Wireless controller; USB cable, HDMI cable, AC power cord. Nogtox PVT HDMI_cable",
+    "image": "https://m.media-amazon.com/images/I/61BF3G-d1SS._AC_SL1500_.jpg",
+    "category": "gaming",
+    "affiliateLink": "https://www.amazon.com/dp/B09W14BJF1?tag=findsondesk-20",
+    "dateAdded": "2026-09-28",
+    "brand": "Sony"
+  },
+  {
+    "id": "razer-gigantus-v2-cloth-gaming-mouse-pad",
+    "name": "Razer Gigantus V2 Cloth Gaming Mouse Pad",
+    "description": "- TEXTURED MICRO-WEAVE CLOTH SURFACE — Optimized across all mouse sensors for pixel-precise accuracy and total tracking responsiveness, the weave’s high thread count let the mouse glide with ease across the mat for quick, fluid swipes\n- THICK, HIGH-DENSITY RUBBER FOAM — At 3mm thick, the mats remain uniformly flat even over imperfect surfaces—a sturdy foundation for consistent mouse movements\n- ANTI-SLIP BASE — When things get chaotic, pull off clutch plays with a stable base that’s crucial to competitive gaming",
+    "image": "https://m.media-amazon.com/images/I/81ap7Y8yTrL._AC_SL1500_.jpg",
+    "category": "desk-mats",
+    "affiliateLink": "https://www.amazon.com/dp/B0D7YPD3K8?tag=findsondesk-20",
+    "dateAdded": "2026-09-28",
+    "brand": "Razer"
   }
 ]
