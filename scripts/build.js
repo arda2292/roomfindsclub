@@ -95,16 +95,29 @@ function tidy(text) {
 }
 
 /* Amazon titles run 100–200 characters. For <title> and cards in search results keep the
-   first clause (up to the first comma, dash or bracket) and cap it at ~55 characters. */
-function shortName(name, max = 55) {
-  const full = plain(name);
-  const first = full.split(/\s*(?:[,，]|\s[-–—|]\s|\(|【)\s*/)[0].trim();
-  const base = first.length >= 20 ? first : full;
+   first clause (up to the first comma or dash) and cap it at ~60 characters. */
+function shortName(name, max = 60) {
+  const full = plain(String(name || "").replace(/[\u200b-\u200d\ufeff]/g, ""));
+  const parts = full.split(/\s*(?:[,，]|\s[-–—|]\s|【)\s*/).map((x) => x.trim()).filter(Boolean);
+  // a very short first clause ("Alex Tech 10ft") usually lacks the product type, so keep the next one too
+  const base = !parts.length ? full : parts[0].length >= 20 || parts.length === 1 ? parts[0] : `${parts[0]} ${parts[1]}`;
   if (base.length <= max) return base;
   const words = base.slice(0, max + 1).split(" ").slice(0, -1);
   // don't end on a connector ("… Keyboard with", "… Desk for")
   while (words.length > 3 && /^(with|for|and|or|the|of|to|in|on|a|an|&|-|–|\+)$/i.test(words[words.length - 1])) words.pop();
-  return words.join(" ").replace(/[,.;:&\-–\s]+$/, "");
+  let out = words.join(" ");
+  // cut inside "(…" → drop the unfinished bracket
+  if ((out.match(/\(/g) || []).length > (out.match(/\)/g) || []).length) out = out.slice(0, out.lastIndexOf("("));
+  return out.replace(/[,.;:&\-–\s]+$/, "");
+}
+
+/* Name used across the site: "Brand + product". The optional shortName set in the admin wins;
+   otherwise the short Amazon title, prefixed with the brand when it doesn't already start with it. */
+function displayName(p) {
+  let n = p.shortName && String(p.shortName).trim() ? plain(p.shortName) : shortName(p.name);
+  const b = plain(p.brand);
+  if (b && !n.toLowerCase().startsWith(b.toLowerCase())) n = `${b} ${n}`;
+  return n;
 }
 
 /* First bullet of a description, without the list marker. */
@@ -215,10 +228,10 @@ function productCard(p) {
   const searchText = esc(`${p.name} ${cat.name}`.toLowerCase());
   return `<article class="card" data-search-text="${searchText}">
   <button class="fav-btn" type="button" data-fav="${esc(p.id)}" aria-pressed="false" aria-label="Save to favorites">${icon("heart")}</button>
-  <a class="card-media" href="${url}" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="${esc(shortName(p.name))}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="400" height="400"></a>
+  <a class="card-media" href="${url}" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="${esc(displayName(p))}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="400" height="400"></a>
   <div class="card-body">
     <span class="card-cat">${esc(cat.name)}</span>
-    <h3 class="card-title"><a href="${url}">${esc(p.name)}</a></h3>
+    <h3 class="card-title"><a href="${url}">${esc(displayName(p))}</a></h3>
   </div>
 </article>`;
 }
@@ -262,7 +275,7 @@ function itemListLd(products) {
   return {
     "@type": "ItemList",
     numberOfItems: products.length,
-    itemListElement: products.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/product/${p.id}/`), name: p.name }))
+    itemListElement: products.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/product/${p.id}/`), name: displayName(p) }))
   };
 }
 
@@ -574,7 +587,7 @@ function pageCategory(c) {
 function pageProduct(p) {
   const c = CAT[p.category];
   const url = `/product/${p.id}/`;
-  const crumbs = breadcrumbs([{ name: "Home", path: "/" }, { name: c.name, path: `/category/${c.slug}/` }, { name: p.name, path: url }]);
+  const crumbs = breadcrumbs([{ name: "Home", path: "/" }, { name: c.name, path: `/category/${c.slug}/` }, { name: displayName(p), path: url }]);
   const related = byCat(c.slug).filter((x) => x.id !== p.id).slice(0, 4);
   const asin = asinFromLink(p.affiliateLink);
 
@@ -582,10 +595,11 @@ function pageProduct(p) {
 <div class="container">
   <div class="page-head" style="padding-bottom:12px;">${crumbs.html}</div>
   <article class="product">
-    <div class="product-media"><img src="${esc(p.image)}" alt="${esc(p.name)}" referrerpolicy="no-referrer" width="600" height="600" fetchpriority="high"></div>
+    <div class="product-media"><img src="${esc(p.image)}" alt="${esc(displayName(p))}" referrerpolicy="no-referrer" width="600" height="600" fetchpriority="high"></div>
     <div class="product-info">
       <a class="pill" href="/category/${c.slug}/">${esc(c.name)}</a>
-      <h1>${esc(p.name)}</h1>
+      <h1>${esc(displayName(p))}</h1>
+      ${plain(p.name) !== displayName(p) ? `<p class="product-fullname">${esc(p.name)}</p>` : ""}
       <div class="product-desc">${renderDescription(p.description)}</div>
       <div class="product-actions">
         <a class="btn btn-primary" href="${esc(p.affiliateLink)}" rel="sponsored nofollow noopener" target="_blank">Check it on Amazon ${icon("external")}</a>
@@ -605,7 +619,8 @@ ${related.length ? `<section class="section" aria-labelledby="related-title">
   const productLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: p.name,
+    name: displayName(p),
+    alternateName: p.name,
     description: plain(tidy(p.description).replace(/^[-•*]\s+/gm, "")),
     image: [p.image],
     url: abs(url),
@@ -615,8 +630,8 @@ ${related.length ? `<section class="section" aria-labelledby="related-title">
   if (p.brand) productLd.brand = { "@type": "Brand", name: p.brand };
 
   return layout({
-    title: `${shortName(p.name)} | ${SITE.name}`,
-    description: metaDescription(`${shortName(p.name)}: ${firstLine(p.description) || `a hand-picked ${c.name.toLowerCase()} find for your setup.`}`),
+    title: `${displayName(p)} | ${SITE.name}`,
+    description: metaDescription(`${displayName(p)}: ${firstLine(p.description) || `a hand-picked ${c.name.toLowerCase()} find for your setup.`}`),
     path: url,
     active: "categories",
     ogType: "product",
@@ -781,7 +796,7 @@ function llmsTxt() {
   ];
   if (PRODUCTS.length) {
     lines.push("## Products", "");
-    PRODUCTS.forEach((p) => lines.push(`- [${p.name}](${abs(`/product/${p.id}/`)}): ${CAT[p.category].name}. ${metaDescription(firstLine(p.description), 140)}`));
+    PRODUCTS.forEach((p) => lines.push(`- [${displayName(p)}](${abs(`/product/${p.id}/`)}): ${CAT[p.category].name}. ${metaDescription(firstLine(p.description), 140)}`));
     lines.push("");
   }
   lines.push("## Optional", "", `- [Full catalog](${abs("/catalog/")})`, `- [About ${SITE.name}](${abs("/about/")}): who runs the site and how finds are chosen`, `- [Instagram](${SITE.social.instagram})`, `- [TikTok](${SITE.social.tiktok})`, "");
@@ -813,6 +828,7 @@ copyDir(path.join(ROOT, "assets"), path.join(OUT, "assets"));
 fs.copyFileSync(path.join(ROOT, "assets/img/favicon.svg"), path.join(OUT, "favicon.svg"));
 fs.mkdirSync(path.join(OUT, "data"), { recursive: true });
 fs.copyFileSync(path.join(ROOT, "data/config.json"), path.join(OUT, "data/config.json"));
-fs.copyFileSync(path.join(ROOT, "data/products.json"), path.join(OUT, "data/products.json"));
+// Same data plus displayName, used by the favorites page. The admin strips unknown fields on publish.
+write("data/products.json", JSON.stringify(productsRaw.map((p) => ({ ...p, displayName: displayName(p) })), null, 2) + "\n");
 
 console.log(`Built ${SITE.name}: ${CATS.length} categories, ${PRODUCTS.length} products → _site/`);

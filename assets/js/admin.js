@@ -171,6 +171,7 @@
       name: $("f-name").value.trim(),
       description: $("f-desc").value.trim(),
       brand: $("f-brand").value.trim(),
+      shortName: $("f-short").value.trim(),
       image: $("f-image").value.trim(),
       category: $("f-cat").value,
       affiliateLink: conv && conv.ok ? conv.output : ""
@@ -208,6 +209,7 @@
     $("f-desc").value = p.description || "";
     $("f-image").value = p.image || "";
     $("f-brand").value = p.brand || "";
+    $("f-short").value = p.shortName || "";
     if (p.category && CATS[p.category]) $("f-cat").value = p.category;
     $("f-id").value = isEdit ? p.id : uniqueId(slugify(p.name || ""));
     $("f-id").readOnly = !!(isEdit && published.some(function (x) { return x.id === p.id; }));
@@ -249,7 +251,7 @@
     $("preview").innerHTML =
       '<article class="card" style="max-width:280px;">' +
       '<div class="card-media">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" referrerpolicy="no-referrer">' : "") + "</div>" +
-      '<div class="card-body"><span class="card-cat">' + esc(cat ? cat.name : "") + '</span><h3 class="card-title">' + esc(p.name || "Sin nombre") + "</h3></div></article>" +
+      '<div class="card-body"><span class="card-cat">' + esc(cat ? cat.name : "") + '</span><h3 class="card-title">' + esc(p.shortName || p.name || "Sin nombre") + "</h3></div></article>" +
       (p.id ? '<p class="hint" style="margin-top:10px;">roomfindsclub.com/product/' + esc(p.id) + "/</p>" : "");
   }
 
@@ -536,6 +538,7 @@
     return items.map(function (p) {
       var o = { id: p.id, name: p.name, description: p.description || "", image: p.image, category: p.category, affiliateLink: p.affiliateLink, dateAdded: p.dateAdded || today() };
       if (p.brand) o.brand = p.brand;
+      if (p.shortName) o.shortName = p.shortName;
       if (p.dateUpdated) o.dateUpdated = p.dateUpdated;
       return o;
     });
@@ -713,7 +716,7 @@
       $("f-link").addEventListener("input", onLinkInput);
       $("f-name").addEventListener("input", onNameInput);
       $("f-id").addEventListener("input", function () { idTouched = true; renderPreview(); });
-      ["f-image", "f-cat", "f-desc"].forEach(function (id) { $(id).addEventListener("input", renderPreview); });
+      ["f-image", "f-cat", "f-desc", "f-short", "f-brand"].forEach(function (id) { $(id).addEventListener("input", renderPreview); });
       $("f-autofill").addEventListener("click", autofill);
       $("f-save").addEventListener("click", saveForm);
       $("f-reset").addEventListener("click", resetForm);
