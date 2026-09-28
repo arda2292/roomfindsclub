@@ -89,9 +89,32 @@ function metaDescription(text, max = 155) {
   return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,.;:\s]+$/, "") + "…";
 }
 
+/* Amazon copy often labels bullets as 【Label】 — show them as "Label: ". */
+function tidy(text) {
+  return String(text || "").replace(/【\s*([^】]*?)\s*】\s*/g, "$1: ");
+}
+
+/* Amazon titles run 100–200 characters. For <title> and cards in search results keep the
+   first clause (up to the first comma, dash or bracket) and cap it at ~55 characters. */
+function shortName(name, max = 55) {
+  const full = plain(name);
+  const first = full.split(/\s*(?:[,，]|\s[-–—|]\s|\(|【)\s*/)[0].trim();
+  const base = first.length >= 20 ? first : full;
+  if (base.length <= max) return base;
+  const words = base.slice(0, max + 1).split(" ").slice(0, -1);
+  // don't end on a connector ("… Keyboard with", "… Desk for")
+  while (words.length > 3 && /^(with|for|and|or|the|of|to|in|on|a|an|&|-|–|\+)$/i.test(words[words.length - 1])) words.pop();
+  return words.join(" ").replace(/[,.;:&\-–\s]+$/, "");
+}
+
+/* First bullet of a description, without the list marker. */
+function firstLine(text) {
+  return tidy(text).split(/\r?\n/).map((l) => l.replace(/^[-•*]\s+/, "").trim()).filter(Boolean)[0] || "";
+}
+
 /* Descriptions: blank-line paragraphs; lines starting with -, • or * become a list. */
 function renderDescription(text) {
-  const lines = String(text || "").split(/\r?\n/);
+  const lines = tidy(text).split(/\r?\n/);
   let html = "", para = [], list = [];
   const flushPara = () => { if (para.length) { html += `<p>${esc(para.join(" "))}</p>`; para = []; } };
   const flushList = () => { if (list.length) { html += `<ul>${list.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>`; list = []; } };
@@ -192,7 +215,7 @@ function productCard(p) {
   const searchText = esc(`${p.name} ${cat.name}`.toLowerCase());
   return `<article class="card" data-search-text="${searchText}">
   <button class="fav-btn" type="button" data-fav="${esc(p.id)}" aria-pressed="false" aria-label="Save to favorites">${icon("heart")}</button>
-  <a class="card-media" href="${url}" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="400" height="400"></a>
+  <a class="card-media" href="${url}" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="${esc(shortName(p.name))}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="400" height="400"></a>
   <div class="card-body">
     <span class="card-cat">${esc(cat.name)}</span>
     <h3 class="card-title"><a href="${url}">${esc(p.name)}</a></h3>
@@ -351,6 +374,7 @@ const ORG_LD = {
   name: SITE.name,
   url: abs("/"),
   logo: abs("/assets/img/apple-touch-icon.png"),
+  description: SITE.description,
   sameAs: Object.values(SITE.social)
 };
 
@@ -436,7 +460,7 @@ ${latestSection}
 
   return layout({
     title: `${SITE.name} — Desk, Gaming & Room Setup Finds`,
-    description: SITE.description,
+    description: "Curated desk, gaming and room setup finds: desks, chairs, monitors, keyboards, audio, lighting and decor, sorted into 18 categories and linked to Amazon.",
     path: "/",
     active: "home",
     body,
@@ -495,7 +519,7 @@ function pageCatalog() {
 
   return layout({
     title: `All Finds — Desk, Gaming & Room Setup Catalog | ${SITE.name}`,
-    description: `Browse every RoomFindsClub find: ${CATS.slice(0, 8).map((c) => c.name.toLowerCase()).join(", ")} and more for your desk, gaming and room setup.`,
+    description: metaDescription(`Browse all ${PRODUCTS.length} RoomFindsClub finds: desks, chairs, monitors, keyboards, audio, lighting and more for your desk, gaming and room setup.`),
     path: "/catalog/",
     active: "catalog",
     body,
@@ -581,16 +605,17 @@ ${related.length ? `<section class="section" aria-labelledby="related-title">
     "@context": "https://schema.org",
     "@type": "Product",
     name: p.name,
-    description: plain(p.description),
+    description: plain(tidy(p.description).replace(/^[-•*]\s+/gm, "")),
     image: [p.image],
     url: abs(url),
     category: c.name
   };
   if (asin) productLd.productID = `asin:${asin}`;
+  if (p.brand) productLd.brand = { "@type": "Brand", name: p.brand };
 
   return layout({
-    title: `${p.name} | ${SITE.name}`,
-    description: metaDescription(p.description || `${p.name} — a ${c.name.toLowerCase()} find on ${SITE.name}.`),
+    title: `${shortName(p.name)} | ${SITE.name}`,
+    description: metaDescription(`${shortName(p.name)}: ${firstLine(p.description) || `a hand-picked ${c.name.toLowerCase()} find for your setup.`}`),
     path: url,
     active: "categories",
     ogType: "product",
@@ -703,7 +728,7 @@ function llmsTxt() {
   ];
   if (PRODUCTS.length) {
     lines.push("## Products", "");
-    PRODUCTS.forEach((p) => lines.push(`- [${p.name}](${abs(`/product/${p.id}/`)}): ${CAT[p.category].name}. ${metaDescription(p.description, 140)}`));
+    PRODUCTS.forEach((p) => lines.push(`- [${p.name}](${abs(`/product/${p.id}/`)}): ${CAT[p.category].name}. ${metaDescription(firstLine(p.description), 140)}`));
     lines.push("");
   }
   lines.push("## Optional", "", `- [Full catalog](${abs("/catalog/")})`, `- [Instagram](${SITE.social.instagram})`, `- [TikTok](${SITE.social.tiktok})`, "");
