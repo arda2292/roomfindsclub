@@ -130,6 +130,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 .cat-card:hover .cat-label { color: var(--lime); }
 .cat-card:hover .cat-label svg { transform: translateX(3px); }
 
+/* ---------- Prose (About) ---------- */
+.prose { max-width: 70ch; padding-bottom: 64px; color: var(--text-soft); font-size: 17px; line-height: 1.7; }
+.prose h2 { font-size: 24px; color: var(--text); margin: 36px 0 10px; }
+.prose h2:first-child { margin-top: 0; }
+.prose ul { padding-left: 20px; margin: 0 0 16px; }
+.prose li { margin-bottom: 8px; }
+.prose strong { color: var(--text); }
+.prose a:not(.btn) { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+.prose .btn { margin-top: 20px; }
+
 /* ---------- Steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; counter-reset: step; }
 .step { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; }
