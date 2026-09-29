@@ -1814,5 +1814,393 @@
     "affiliateLink": "https://www.amazon.com/dp/B0F195W823?tag=findsondesk-20",
     "dateAdded": "2026-09-29",
     "brand": "Acer"
+  },
+  {
+    "id": "msi-geforce-rtx-5070-ti-16g-ventus-3x",
+    "name": "MSI GeForce RTX 5070 Ti 16G Ventus 3X OC Graphics Card - RTX 5070 Ti GPU, 16GB GDDR7 (28Gbps/256-bit), PCIe 5.0 - Triple Fan Thermal Design (3 x TORX Fan 5.0) - HDMI 2.1b, DisplayPort 2.1b",
+    "description": "- Core pipes: Core Pipes have a square design to maximize contact with the GPU baseplate for optimal thermal management\n- TORX Fan 5.0: Fan blades linked by ring arcs work to stabilize and maintain high-pressure airflow\n- GeForce RTX 5070 Ti 16G VENTUS 3X OC\n- A power supply with min. 750 W and the latest drivers\n- Triple fan: Three fans and a huge heatsink ensure a cool and quiet experience\n- Nickel-plated copper baseplate: Nickel-plated copper baseplate quickly picks up and transfers heat from the GPU and memory",
+    "image": "https://m.media-amazon.com/images/I/51OV6LgWjJL._AC_SL1024_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0DV9GC9SR?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "msi"
+  },
+  {
+    "id": "gigabyte-aorus-geforce-rtx-5080-infinity-16g-graphics",
+    "name": "GIGABYTE AORUS GeForce RTX 5080 Infinity 16G Graphics Card, 16GB 256-bit GDDR7, PCIe 5.0, WINDFORCE HYPERBURST Cooling System, GV-N5080AORUS IF-16GD Video Card",
+    "description": "- Powered by GeForce RTX 5080\n- Integrated with 16GB GDDR7 256-bit memory interface\n- WINDFORCE HYPERBURST cooling system\n- RGB Halo\n- Die-casting Metal Backplate",
+    "image": "https://m.media-amazon.com/images/I/71Nr8oj+vBL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0H9SZ6S5W?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "GIGABYTE"
+  },
+  {
+    "id": "amd-ryzen-7-9800x3d-8-core-16-thread-desktop-processor",
+    "name": "AMD RYZEN 7 9800X3D 8-Core, 16-Thread Desktop Processor",
+    "description": "- The world’s fastest gaming processor, built on AMD ‘Zen5’ technology and Next Gen 3D V-Cache.\n- 8 cores and 16 threads, delivering +~16% IPC uplift and great power efficiency\n- 96MB L3 cache with better thermal performance vs. previous gen and allowing higher clock speeds, up to 5.2GHz\n- Drop-in ready for proven Socket AM5 infrastructure\n- Cooler not included",
+    "image": "https://m.media-amazon.com/images/I/71NMFO0iUhL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0DKFMSMYK?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "AMD"
+  },
+  {
+    "id": "amd-ryzen-5-9600x-6-core-12-thread-unlocked-desktop",
+    "name": "AMD Ryzen™ 5 9600X 6-Core, 12-Thread Unlocked Desktop Processor",
+    "description": "- Pure gaming performance with smooth 100+ FPS in the world's most popular games\n- 6 Cores and 12 processing threads, based on AMD \"Zen 5\" architecture\n- 5.4 GHz Max Boost, unlocked for overclocking, 38 MB cache, DDR5-5600 support\n- For the state-of-the-art Socket AM5 platform, can support PCIe 5.0 on select motherboards\n- Cooler not included",
+    "image": "https://m.media-amazon.com/images/I/61RfWUr4kvL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0D6NN6TM7?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "AMD"
+  },
+  {
+    "id": "intel-core-ultra-7-desktop-processor-265k",
+    "name": "Intel Core Ultra 7 Desktop Processor 265K - 20 cores (8 P-cores + 12 E-cores) up to 5.5 GHz",
+    "description": "- Get ultra-efficient with Intel Core Ultra desktop processors that improve both performance and efficiency so your PC can run cooler, quieter, and quicker.\n- Core and Threads 20 cores (8 P-cores plus 12 E-cores) and 20 threads\n- Performance Hybrid Architecture Integrates two core microarchitectures, prioritizing and distributing workloads to optimize performance\n- Performance Unlocked Up to 5.5 GHz unlocked. 36MB Cache\n- Compatibility Compatible with Intel 800 series chipset-based motherboards\n- PCIe Express Version Turbo Boost Max Technology 3.0, and PCIe 5.0 and 4.0 support. Intel Optane Memory support. No thermal solution included",
+    "image": "https://m.media-amazon.com/images/I/51gf0NAUHkL._AC_SL1000_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0DFK2MH2D?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Intel"
+  },
+  {
+    "id": "intel-core-i5-14600k-desktop-processor",
+    "name": "Intel® Core™ i5-14600K Desktop Processor",
+    "description": "- Be everything you want to be, in-game and out with optimized performance and new features. Play harder and work smarter with Intel Core 14th Gen processors\n- 14 cores (6 P-cores plus 8 E-cores) and 20 threads. Integrated Intel UHD Graphics 770 included\n- Up to 5.3 GHz Max Turbo Frequency\n- Compatible with Intel 600-series (with potential BIOS update) or 700-series chipset-based motherboards\n- DDR4 and DDR5 platform support cuts your load times and gives you the space to run the most demanding games",
+    "image": "https://m.media-amazon.com/images/I/61IrFcuSCeL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0CGJ9STNF?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Intel"
+  },
+  {
+    "id": "msi-mag-b850-tomahawk-wifi-motherboard-atx",
+    "name": "MSI MAG B850 Tomahawk WiFi Motherboard, ATX - Supports AMD Ryzen 9000/8000 / 7000 Processors, AM5-80A SPS VRM, DDR5 Memory Boost 8200+ MT/s (OC), PCIe 5.0 x16, M.2 Gen5, Wi-Fi 7, 5G LAN",
+    "description": "- ULTRA POWER - SUPPORTS THE LATEST RYZEN 9000 PROCESSORS IN HIGH PERFORMANCE - The MAG B850 TOMAHAWK WIFI employs a 14 Duet Rail Power System (80A, SPS) VRM for the AMD B850 chipset (AM5, Ryzen 9000 / 8000 / 7000) with Core Boost architecture\n- FROZR GUARD - Premium cooling features such as 7W/mK MOSFET thermal pads, extra choke thermal pads and an Extended Heatsink; Includes chipset heatsink, EZ M.2 Shield Frozr II, and a Combo-fan (for pump & system) header (3A)\n- DDR5 MEMORY, PCIe 5.0 x16 SLOT - 4 x DDR5 DIMM SMT slots enable extreme memory overclocking speeds (1DPC 1R, 8200+ MT/s); 1 x PCIe 5.0 x16 SMT slot (128GB/s) with Steel Armor II supports cutting-edge graphics cards\n- TRIPLE M.2 CONNECTORS - Storage options include 1 x M.2 Gen5 x4 128Gbps slot and 2 x M.2 Gen4 x4 64Gbps slots; Features EZ M.2 Shield Frozr II to prevent thermal throttling and EZ M.2 Clip II for EZ DIY experience\n- CONNECTIVITY - Network hardware includes a full-speed Wi-Fi 7 module with Bluetooth 5.4 & 5Gbps LAN; Rear ports include USB 20G Type-C and 7.1 USB High Performance Audio with Audio Boost 5 (supports S/PDIF output)",
+    "image": "https://m.media-amazon.com/images/I/81SKBZ1sZnL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0G3SVRLT3?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "msi"
+  },
+  {
+    "id": "gigabyte-b850-aorus-elite-wifi7-amd-am5-atx",
+    "name": "GIGABYTE B850 AORUS Elite WIFI7 AMD AM5 ATX Motherboard, Support AMD Ryzen 9000/8000/7000 Series, DDR5, 14+2+2 Power Phase, 3X M.2, PCIe 5.0, USB-C, WIFI7, 2.5GbE LAN, EZ-Latch, 5-Year Warranty",
+    "description": "- AMD Socket AM5: Supports AMD Ryzen 9000 / Ryzen 8000 / Ryzen 7000 Series Processors\n- DDR5 Compatible: 4*DIMMs\n- Power Design: 14+2+2\n- Thermals: VRM and M.2 Thermal Guard\n- Connectivity: PCIe 5.0, 3x M.2 Slots, USB-C, Sensor Panel Link",
+    "image": "https://m.media-amazon.com/images/I/71rZeGkdRnL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0DQLHVQSF?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "GIGABYTE"
+  },
+  {
+    "id": "gigabyte-aorus-gen4-7000e-ssd-1tb-pcie-4",
+    "name": "GIGABYTE AORUS Gen4 7000E SSD 1TB PCIe 4.0 NVMe M.2 Internal Solid State Hard Drive with Read Speed Up to 7100MB/s, Write Speed Up to 6100MB/s, AG470E1TB",
+    "description": "- Form Factor: M.2 2280\n- Interface: PCI Express 4.0x4, NVMe 1.4\n- Total Capacity: 1000GB (1TB)\n- Sequential Read Speed: Up to 7100MB/s\n- Sequential Write speed: Up to 6100MB/s",
+    "image": "https://m.media-amazon.com/images/I/61DWuLXN7SL._AC_SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0H5NQSCXK?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "GIGABYTE"
+  },
+  {
+    "id": "msi-mag-coreliquid-a13-360-aio-argb",
+    "name": "MSI MAG Coreliquid A13 360 - AIO ARGB CPU Liquid Cooler - 360mm Radiator - LGA 1700/1851 / AM5/AM4 Compatible - Triple 120mm ARGB PWM Fans, Black",
+    "description": "- LGA 1851 READY - The MAG CORELIQUID Series liquid cooler provides out of box support for LGA 1851.\n- SPLIT-FLOW RADIATOR WITH INTEGRATED PUMP - The aluminium radiator features a unique split-flow water cooling system with an integrated three-phase pump for superior durability and motor resonance reduction.\n- The CORELIQUID A13 series is equipped with a high-performance pump that operates at speeds up to 3800 RPM. Combined with high-quality ceramic bearings, it achieves a perfect balance between performance and quiet operation\n- EVAPORATION-PROOF TUBING - 390mm water cooling tubes comprised of triple-layered netted plastic concealed beneath reinforced mesh sheathing to ensure that water stays inside the closed-loop system at all times.\n- AMD and INTEL SOCKET COMPATIBLE - An easy-to-install mounting bracket fits AMD (AM5, AM4) and Intel (LGA 1700) CPU sockets; Thermal paste included",
+    "image": "https://m.media-amazon.com/images/I/61FAsvOSPaL._SL1500_.jpg",
+    "category": "pc-components",
+    "affiliateLink": "https://www.amazon.com/dp/B0DM4BRSV5?tag=findsondesk-20",
+    "dateAdded": "2026-09-29"
+  },
+  {
+    "id": "newskill-banshee-professional-gaming-chair-black",
+    "name": "NEWSKILL Banshee Professional Gaming Chair - Black",
+    "description": "The most advanced and durable chair ever created to master your gaming, streaming or telework setup. And all with the soft feel of the breathable fabric. It is perfect for those looking for a unique combination of comfort, durability, custom fit and ergonomics at a competitive price. Designed for maximum comfort and durability. With a durable construction and high-quality materials, this chair adapts to your needs with ease. It is ideal for long gaming or work sessions and provides ergonomic support and individual comfort to ensure an unparalleled sitting experience.",
+    "image": "https://m.media-amazon.com/images/I/71gesL38VoL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0DLWJMTHH?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Newskill"
+  },
+  {
+    "id": "newskill-fafnir-professional-gaming-chair-breathable-fabric",
+    "name": "NEWSKILL Fafnir Professional Gaming Chair, Breathable Fabric, Adjustable Tilt and Height, Ergonomic, Piston Gas Class 4, Up to 150 kg, Reinforced Metal Base, Gaming Chair, Black and Blue",
+    "description": "- ⭐【Breathable Gaming Chair】The Fafnir chair is upholstered in soft and breathable fabric, with color accents is perfect for use both as an office chair or in your long gaming sessions. The fabric of the chair will perfectly withstand the continued use, rubbing and the passage of time like the first day and you can enjoy the air circulation and cool even in summer.\n- ⭐【Practical Ergonomics】Fafnir chair's ergonomic design will keep you in proper posture thanks to the backrest that conforms to the natural curves of your spine, taking care of the health of your back. Its wide 19\" backrest provides extra room for relaxed sitting and keeps you focused on your game or work. The raised range of armrests is 8 cm, with a soft surface that will keep your arms comfortable during long working time between armrests and mouse.\n- ⭐【DIMENSIONS】Sit back and enjoy the comfort of the 31\" high and 19\" wide backrest. In addition, you can adjust the height between 46 and 54 cm, depending on your height, body size and favorite sitting position. Enjoy use as an office chair or desk chair thanks to its wide seat measuring 50cm wide and 47.5cm deep. The assembly of the chair is simple by following the included detailed instructions of the chair installation.\n- ⭐【More Stable and Sturdy】This chair is designed to meet everything you expect from a gaming chair: stability and durability. Thanks to its Class 4 gas piston, which supports up to 150 kg, you can adjust its height whenever you need it, comfortably from the lever on the bottom of the seat. On its wide reinforced metal base, the 50 mm diameter wheels are placed, perfect for moving effortlessly in the gaming chair. Non-reclining chair.\n- NEWSKILL GAMING is a leading manufacturer of gaming peripherals for PC and consoles, offering the best quality and confidence to its customers with more than 6 years of experience. To view your full catalog, click Visit the NEWSKILL Store at the bottom of each product's title.",
+    "image": "https://m.media-amazon.com/images/I/41NxNKfDfPL._AC_SL1200_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0B7J7QVXB?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Newskill"
+  },
+  {
+    "id": "newskill-nue-ergonomic-gaming-chair-black-blue",
+    "name": "NEWSKILL Nue Ergonomic Gaming Chair Black - Blue",
+    "description": "- Breathe ergonomics with Nue Nue is the new arrival, but ergonomics and fit come from the family. Get comfortable because everything will adapt to your movements. The Newskill NUE ergonomic chair is designed to offer maximum comfort and support during long days of work or play. Made with 50kg/m3 high-density molded foam, this chair provides superior durability and comfort. Its sturdy black nylon construction with mesh ensures excellent ventilation and support, my",
+    "image": "https://m.media-amazon.com/images/I/71eIOsc9LzL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0DLB8MS1Y?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Newskill"
+  },
+  {
+    "id": "drift-gaming-dr350-professional-ergonomic-gaming-chair-with",
+    "name": "DRIFT GAMING DR350 Professional Ergonomic Gaming Chair with 4D Armrests, Lumbar and Neck Cushion, 135° Tilt, Quiet Wheels, Black Gold",
+    "description": "- ERGONOMIC GAMING CHAIR FOR GAMER & OFFICE High back with lumbar and neck cushion for full back and neck support, ideal for long gaming sessions or working on PC.\n- 4D ADJUSTABLE ARMRESTS - Adjustable height, angle, depth and rotation, protect arms and wrists and adjust to any posture for maximum comfort.\n- 135° Tilt with Lock: Allows relaxed reclining and resting without losing posture - perfect for breaks, streaming or relaxing.\n- QUIET NYLON & PU WHEELS - Smooth glide on all floors without noise or damage - ideal for gaming setups or office desks.\n- Robust construction, weight and dimensions: metal frame with gas spring class 4, can hold up to 150 kg, dimensions 70 x 130 - 139 x 66 cm (W x H x D), weight 22 kg - maximum stability and safety.",
+    "image": "https://m.media-amazon.com/images/I/51r6fZevdAL._AC_SL1200_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0B4PKS751?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "DRIFT GAMING"
+  },
+  {
+    "id": "drift-gaming-dr90-ergonomic-gaming-chair-with-head",
+    "name": "DRIFT GAMING DR90 Ergonomic Gaming Chair with Head and Lumbar Support, 135° Tilting Backrest, 2D Adjustable Armrests, Breathable Fabric, Nylon Base and Class 4 Gas Spring, Grey/Pink",
+    "description": "- Material fabric – inner material: foam/metal frame – 2D armrests painted black with PU cushion, extra padded\n- 64cm Black Nylon Base with Black Nylon Wheels - Black Painted Gas Lift 80mm Class 4\n- Functions: tilt, turn and lock function - neck and lumbar cushion\n- Dimensions: 63D x 67W x 128H cm, weight: 19.90 kg\n- Number of units: 1.0",
+    "image": "https://m.media-amazon.com/images/I/61F3XVgmQmL._AC_SL1200_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0B4WYDCDK?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "DRIFT GAMING"
+  },
+  {
+    "id": "corsair-tc100-relaxed-gaming-chair-leatherette",
+    "name": "Corsair TC100 Relaxed Gaming Chair - Leatherette - Racing-Inspired Design - Lumbar Pillow - Detachable Memory Foam Neck Pillow - Adjustable Seat Height - Adjustable Armrests - Black",
+    "description": "- Racing-Inspired Design with Relaxed Bolstering: A stylish racing-inspired design with relaxed bolstering provides a roomy 375mm seat width and ergonomic full-body support.\n- Plush Leatherette Exterior: Upholstered with plush leatherette, so you can play in luxurious comfort.\n- CORSAIR RELAXED SERIES Family of Chairs: Offers wider seating and plush contact points, giving you the flexibility to lean or recline with all the support you need to sit in comfort for hours.\n- Included Lumbar Pillow and Memory Foam Neck Pillow: An included adjustable high-density foam lumbar pillow helps you maintain a healthy posture while gaming, with a detachable memory foam neck pillow.\n- 100mm Adjustable Seat Height: Effortlessly set your seat to your desired height thanks to a steel-construction class 4 gas lift, with 100mm of movement range.",
+    "image": "https://m.media-amazon.com/images/I/61q+ybPV2bL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0BN6RRD5V?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Corsair"
+  },
+  {
+    "id": "corsair-t3-rush-fabric-gaming-chair-2023-racing-inspired-2",
+    "name": "Corsair T3 Rush Fabric Gaming Chair (2023) – Racing-Inspired Design – Soft Fabric Exterior – Padded Neck Cushion – Memory Foam Lumbar Support – Adjustable Seat Height – Charcoal",
+    "description": "- Inspired by Performance Motorsports: The T3 RUSH’s breathable soft fabric exterior retains minimal heat, providing the contoured comfort and support to battle through an intense skirmish or an all-day competition.\n- Padded Neck Cushion and Memory Foam Lumbar Support: Sit back and relax as you play thanks to cushions for your neck and lower back, both wrapped in plush microfiber.\n- Embedded Steel Frame: Built with solid steel in the chair base and back, ensuring years of strength and durability.\n- 4D Armrests: Adjust the armrests in any direction – up or down, left or right, forward or backward, or swiveled to support your posture.\n- 100mm of Adjustable Seat Height: Effortlessly set your seat to your ideal height with a wide range of movement, supported by a steel-construction class 4 gas lift.",
+    "image": "https://m.media-amazon.com/images/I/61h2W4lO2AL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0BMC359CT?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Corsair"
+  },
+  {
+    "id": "razer-iskur-v2-x-ergonomic-gaming-chair-black",
+    "name": "Razer Iskur V2 X Ergonomic Gaming Chair, Black",
+    "description": "- BUILT-IN LUMBAR SUPPORT — Designed with an integrated lumbar arch that gently supports the lower back and encourages a neutral sitting position, minimizing back fatigue over long periods\n- WIDENED SEAT BASE WITH REDUCED EDGES — Sculpted with reduced edges to guide the body towards the center for optimal pressure distribution; enjoy greater flexibility in sitting with a widened seat base\n- CONTOURED HIGH DENSITY FOAM CUSHIONS — Experience a greater level of lower body support and stability with thick cushion padding that reduces pressure and molds to unique body shapes\n- ADJUSTABLE 152-DEGREE RECLINE — Lean back and set the ideal angle with a backrest that has an adjustable recline of up to 152 degrees\n- 2D ARMRESTS — With armrests that can be adjusted in height and rotated inwards or outwards, arms can be in a natural, relaxed position when gaming\n- PLUSH FABRIC FINISH — Upholstered with naturally breathable, multi-layered fibers, enjoy plush comfort that’s cool to the skin and smooth to the touch",
+    "image": "https://m.media-amazon.com/images/I/71JMbeac-qL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0DP5SY554?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Razer"
+  },
+  {
+    "id": "razer-enki-x-essential-gaming-chair-all-day-comfort",
+    "name": "Razer Enki X Essential Gaming Chair, All-Day Comfort, Black",
+    "description": "- DESIGNED FOR ALL-DAY GAMING - 110-degree shoulder arches and wide 54-cm seat base ensure optimal weight distribution for long-lasting comfort during gaming marathons\n- BUILT-IN LUMBAR ARCH - Feel less fatigued over long periods with the lumbar curve that gently supports your lower back and encourages sitting in a neutral position\n- OPTIMIZED CUSHION DENSITY - Unparalleled comfort with a softer seat base for a cushier feel and a firmer seat backing for solid support\n- DUAL-TEXTURED, EC0-FRIENDLY SYNTHETIC LEATHER - Core areas of the chair are covered in a plush textured fabric for more refined comfort, while the outer edges are lined with smooth leather to better withstand daily wear and tear\n- ADJUSTABLE 152 DEGREE RECLINE — Whether you’re sitting up for competitive play or leaning back to watch a movie, the chair’s reclinable backrest can be easily adjusted to suit any situation",
+    "image": "https://m.media-amazon.com/images/I/713Sneig0BL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0CGGPKBCZ?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Razer"
+  },
+  {
+    "id": "razer-enki-gaming-chair-built-in-lumbar-arch-all-day",
+    "name": "Razer Enki Gaming Chair, Built-in Lumbar Arch, All-Day Comfort, Black",
+    "description": "- DESIGNED FOR ALL-DAY GAMING — 110-degree shoulder arches and wide 54-cm seat base ensure optimal weight distribution for long-lasting comfort during gaming marathons\n- BUILT-IN LUMBAR ARCH — Feel less fatigued over long periods with the lumbar curve that gently supports your lower back and encourages sitting in a neutral position\n- OPTIMIZED CUSHION DENSITY — Unparalleled comfort with a softer seat base for a cushier feel and a firmer seat backing for solid support\n- DUAL-TEXTURED, EC0-FRIENDLY SYNTHETIC LEATHER — Core areas of the chair are covered in a plush textured fabric for more refined comfort, while the outer edges are lined with smooth leather to better withstand daily wear and tear\n- REACTIVE SEAT TILE & 152-DEGREE RECLINE — Lean back effortlessly into the seat thanks to a reactive mechanism that reacts to your weight, and lay as far back as you want with an adjustable recline of up to 152 degrees\n- 4D ARMRESTS — Adjust the armrests’ height, angle and move them forwards or backwards for a tailored sitting position\n- PREMIUM MEMORY FOAM HEAD CUSHION — Included plush head cushion that can mold to head and neck shapes, providing cushy support to those key areas",
+    "image": "https://m.media-amazon.com/images/I/71R0jFAmvdL._AC_SL1500_.jpg",
+    "category": "chairs",
+    "affiliateLink": "https://www.amazon.com/dp/B0CGH3KY8Y?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Razer"
+  },
+  {
+    "id": "corsair-k70-core-rgb-mechanical-wired-gaming-keyboard",
+    "name": "CORSAIR K70 CORE RGB Mechanical Wired Gaming Keyboard with Palmrest",
+    "description": "- Magnificent Mechanical Keyboard Experience: Pre-lubricated CORSAIR Red linear mechanical switches deliver smooth, responsive keystrokes, enhanced by two layers of sound dampening for extremely satisfying gaming and typing\n- Masterful Media Control: Control volume and more with a multi-function rotary dial and programmable media button, customizable with iCUE\n- Robust Aluminum Top Plate: The durable aluminum top plate offers another layer of stability and style\n- Sturdy Double-Shot Keycaps: Tough and resilient ABS double-shot keycaps won’t crack under pressure\n- Magnetic Detachable Soft-Touch Palm Rest: A magnetic soft-touch palm rest conveniently adds a comfortable spot to rest your hands, with easy magnetic attachment.",
+    "image": "https://m.media-amazon.com/images/I/71OZw49mDFL._AC_SL1500_.jpg",
+    "category": "keyboards",
+    "affiliateLink": "https://www.amazon.com/dp/B0CH3MRGK7?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Corsair"
+  },
+  {
+    "id": "corsair-m65-rgb-ultra-wired-adjustable-weight-fps",
+    "name": "Corsair M65 RGB Ultra Wired Adjustable Weight FPS PC Gaming Mouse",
+    "description": "- Iconic Aluminum Frame: The M65 RGB ULTRA’s anodized aluminum frame makes for lasting durability with a familiar shape.\n- CORSAIR MARKSMAN 26,000 DPI Optical Sensor: With an astonishing native 26,000 DPI and 650 inches per seconds (IPS) tracking, the MARKSMAN sensor captures your every mouse movement.\n- Optical Switches: Left and right-click switches deliver hyper-fast and precise responses, while standing up to years of rigorous use.\n- CORSAIR AXON Hyper-Processing Technology: Registers and transmits your movements and clicks up to 8x faster than conventional gaming mice thanks to a native 8,000Hz polling rate.\n- Sensor Fusion Control: Combines a six-axis gyro and accelerometer to enable ultra-low lift-off distance for more accurate tracking when repositioning your mouse.",
+    "image": "https://m.media-amazon.com/images/I/61lUrCmjygL._AC_SL1500_.jpg",
+    "category": "mice",
+    "affiliateLink": "https://www.amazon.com/dp/B09CXQZMHG?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Corsair"
+  },
+  {
+    "id": "corsair-hs80-rgb-usb-wired-pc-gaming-headset",
+    "name": "Corsair HS80 RGB USB Wired PC Gaming Headset – Black",
+    "description": "- Dolby Audio 7.1 Surround Sound: Brings your game to life, putting you directly in the middle of the action.Note : If the size of the earbud tips does not match the size of your ear canals or the headset is not worn properly in your ears, you may not obtain the correct sound qualities or call performance. Change the earbud tips to ones that fit more snugly in your ear.\n- Catch Every Sound: From a faint whisper to a resonating blast, a pair of custom-tuned 50mm high-density neodymium audio drivers deliver sound in exquisite detail with a massive frequency range of 20Hz-40,000Hz.\n- Hours of Long-Lasting Plush Comfort: Equipped with memory foam earpads with a breathable microfiber cloth exterior and a stress-free adjustable floating headband design.\n- Broadcast-Grade Omni-Directional Microphone: Captures your voice with the utmost clarity, with a flip-up mute function and a built-in LED mute indicator.\n- High-Fidelity 24bit/96kHz Sound: Experience true high-fidelity audio over a USB wired connection.",
+    "image": "https://m.media-amazon.com/images/I/81I9A5jfPCL._AC_SL1500_.jpg",
+    "category": "headphones",
+    "affiliateLink": "https://www.amazon.com/dp/B09YHQWHKV?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Corsair"
+  },
+  {
+    "id": "razer-blackwidow-v4-x-mechanical-gaming-keyboard",
+    "name": "Razer BlackWidow V4 X Mechanical Gaming Keyboard",
+    "description": "- YELLOW MECHANICAL LINEAR SWITCHES: With zero distance between actuation and reset points at 1.2mm and only 45g of force required — enjoy instant, rapid-fire inputs that are just as quiet thanks to built-in sound dampeners\n- 6 DEDICATED MACRO KEYS: Expand the arsenal of commands with a set of easy-access macro keys that can be programmed to peferred playstyle\n- MULTI-FUNCTION ROLLER and SECONDARY MEDIA KEYS: Pause, play, skip, and tweak everything from brightness to volume for ultimate convenience\n- CHROMA RGB PER-KEY LIGHTING: With a switch construction that promotes brighter, even lighting, customize each key from over 16.8 million colors and effects—including dynamic lighting for hundreds of Chroma-integrated games\n- DOUBLESHOT ABS KEYCAPS: Using a doubleshot molding process to ensure the labeling never wears off while having extra-thick walls to withstand intense gaming\n- IMPROVED KEYBOARD ACOUSTICS: With a layer of special foam under the circuit board and lubricated stabilizers to minimize noise, the keyboard ensures a typing experience that sounds as satisfying as it feels",
+    "image": "https://m.media-amazon.com/images/I/71m+Xv1JKML._SL1500_.jpg",
+    "category": "keyboards",
+    "affiliateLink": "https://www.amazon.com/dp/B0C8QYB8W6?tag=findsondesk-20",
+    "dateAdded": "2026-09-29"
+  },
+  {
+    "id": "razer-deathadder-v3-wired-gaming-mouse",
+    "name": "Razer DeathAdder V3 Wired Gaming Mouse",
+    "description": "- 59G ULTRA-LIGHTWEIGHT DESIGN — Enjoy a level of speed and control favored by the world’s top players with one of the lightest ergonomic esports mice ever created\n- FOCUS PRO 30K OPTICAL SENSOR — Flawless tracking performance on a wider variety of surfaces including glass—supported by intelligent functions for enhanced aim and control\n- OPTICAL MOUSE SWITCHES GEN-3 — From an improved 90-million click lifecycle with zero double-clicking issues, to a blistering 0.2ms actuation with no debounce delay, the mouse has the reliability and speed built for esports\n- 8K HZ HYPERPOLLING TECHNOLOGY — The mouse can communicate its position and clicks to your PC at up to 8000 times a second for near-zero input latency\n- ERGONOMIC FORM — Developed in partnership with top esports pros, the iconic shape of the Razer DeathAdder has been further improved to continue its legacy of award-winning handling and comfort\n- RAZER SPEEDFLEX CABLE — Woven for greater flexibility and designed to produce minimal drag allows quicker, smoother swipes for tighter mouse control\n- ZERO MOVEMENT ANTI-SLIP GRIP — The solid, weighted base is reinforced with non-slip feet to always keep the bungee in place and never flip over while gaming\n- OPTIMIZE MOUSE ACCURACY — Improve accuracy by disabling the \"Enhance pointer precision\" option in the Windows mouse settings, and further optimize performance using the Razer Synapse App",
+    "image": "https://m.media-amazon.com/images/I/61Syl8a3uwL._AC_SL1500_.jpg",
+    "category": "mice",
+    "affiliateLink": "https://www.amazon.com/dp/B0B6XTDJS1?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Razer"
+  },
+  {
+    "id": "steelseries-arctis-nova-5-wireless-multi-system-gaming-heads",
+    "name": "SteelSeries Arctis Nova 5 Wireless Multi-System Gaming Headset",
+    "description": "- 100+ GAME AUDIO PRESETS — Unlock tailored audio presets for top games like GTA V, FIFA, Call of Duty, and more, with the Arctis Nova 5 Companion App\n- 60-HOUR BATTERY — Play longer than ever with the next-gen battery. Go 8 hours a day all week; plus with USB-C Fast Charge get 6 hours of use in just 15 minutes\n- QUICK-SWITCH WIRELESS — Toggle between 2.4GHz gaming and Bluetooth 5.3 with a tap of a button to take a call or listen to media; notification beeps keep you posted on incoming calls while gaming\n- NEODYMIUM MAGNETIC DRIVERS — These drivers create an ultra-detailed soundscape of crystal clear highs, pinpoint mids, and deep bass for your space journey\n- NEXT-GEN MIC — Our upgraded, fully retractable ClearCast 2.X microphone has 2X the clarity with a high-bandwidth chipset supporting 32KHz/16Bit audio\n- CROSS-PLATFORM — Easily swap between PC, PlayStation, Switch, Meta Quest, phones or tablets with a compact USB-C Dongle\n- ON-EAR CONTROLS — All the buttons you need are right on the headset: Power, mute, volume adjustment, and Quick-Switch to tap into Bluetooth",
+    "image": "https://m.media-amazon.com/images/I/61+WSjGgFzL._AC_SL1500_.jpg",
+    "category": "speakers",
+    "affiliateLink": "https://www.amazon.com/dp/B0D2YBQQ1P?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "SteelSeries"
+  },
+  {
+    "id": "steelseries-apex-pro-tkl-gen-3-gaming-keyboard",
+    "name": "SteelSeries Apex Pro TKL Gen 3 Gaming Keyboard",
+    "description": "- TRIPLE THREAT POWERED BY QUICKSET — Apex Pro is the only line of keyboards in the world with Rapid Trigger, Rapid Tap, and Protection Mode (Patent Pending), activated for your game in seconds\n- RAPID TRIGGER FOR FASTER ACTIONS — Stop fast, start your next move faster. Resets the moment you release a key.\n- RAPID TAP FOR FASTER MOVEMENT — Snaps to your latest key press to strafe and dodge faster.\n- PROTECTION MODE STOPS MISTAKES — Patent pending feature reduces accidental keypresses on nearby keys - no more accidental ults\n- QUICKSET AUTO-PRESETS — Easy setup in seconds, auto-launch pro-level configs when your game loads.\n- OLED SMART DISPLAY — Change settings from your keyboard directly. Your configs stay saved onboard so you don't need to leave the game.\n- ANALOG MAGNETIC SWITCHES - OmniPoint 3 with Hall Effect Switches, 40 levels of adjustable actuation (0.1mm to 4.0mm), and 45g bottom out force.",
+    "image": "https://m.media-amazon.com/images/I/713vLZcw3FL._AC_SL1500_.jpg",
+    "category": "keyboards",
+    "affiliateLink": "https://www.amazon.com/dp/B0DGZLHN8G?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "SteelSeries"
+  },
+  {
+    "id": "steelseries-aerox-5-holey-rgb-gaming-mouse",
+    "name": "SteelSeries Aerox 5 - Holey RGB Gaming Mouse",
+    "description": "- STUNNING RGB — Radiant 3-zone PrismSync RGB shines in 16.8 million configurable colors\n- ULTRA LIGHTWEIGHT — Purposefully designed holey shell reduces weight to 59g for effortless, fast gameplay\n- AQUABARRIER — Mouse interiors are shielded from water splashes, dust, and dirt, technology rated IP54\n- BATTLE-TESTED SHAPE — Every component has been carefully optimized and shaped for minimum weight, maximum comfort, and extended durability\n- 9 PROGRAMMABLE BUTTONS — Natural comfort with fully customizable buttons which include a side panel and an up/down flick switch\n- NEXT-GEN SWITCHES — Golden Micro IP54 switches last longer than a lifetime for crispy clicks, with added dust and water resistance\n- PIXEL-PERFECT ACCURACY — Great TrueMove Air optical gaming sensor co-developed with PixArt",
+    "image": "https://m.media-amazon.com/images/I/617bA+NKDdL._AC_SL1500_.jpg",
+    "category": "mice",
+    "affiliateLink": "https://www.amazon.com/dp/B09VNTCZZN?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "SteelSeries"
+  },
+  {
+    "id": "trust-gaming-gxt-834-callaz-tkl-mechanical-keyboard",
+    "name": "Trust Gaming GXT 834 Callaz TKL Mechanical Keyboard",
+    "description": "- INCUSABLE PLAYER - Outemu mechanical red linear switches feature durability of up to 50 million keystrokes and hours and hours of intense gaming sessions\n- TKL - A compact, space-saving, no-keypad design that reduces desktop clutter yet delivers a full-size gaming experience with 12 multimedia keys\n- PREMIUM DESIGN - A metal top plate prepares your gaming keyboard for tough opponents - and gives your set-up a sleek and professional look\n- SOLID CONSTRUCTION - Combined mechanical switches and metal top plate prepare the keyboard for tough opponents, intense gaming sessions and hours and hours of use\n- LIGHTS AND ACTION! - Multi-color backlit keys, with 20 colors and 6 color modes, allow you to customize the keyboard according to your mood, your playing style or how you like it\n- Connectivity Type: USB 2.0",
+    "image": "https://m.media-amazon.com/images/I/61Ei1pDgolL._AC_SL1500_.jpg",
+    "category": "keyboards",
+    "affiliateLink": "https://www.amazon.com/dp/B09Q3MG6HH?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "GXTrust"
+  },
+  {
+    "id": "mars-gaming-mkpro-mechanical-switches",
+    "name": "Mars Gaming MKPRO Mechanical Switches",
+    "description": "- Full format and RGB lighting: the MKPRO gaming keyboard offers an ergonomic full-size design with compact size and optimised structure for gaming, study or work; it also features advanced RGB chroma backlight and customizable side lights, keyboard with French layout\n- Maximum performance and quiet operation quietcore: the MKPRO mechanical keyboard features full anti-osting, three-level height adjustment, double injected ABS keys, a removable USB-C cable and integrated QuietCore foam for a quiet and comfortable experience; Silent Yellow Lubricated Switch\n- HOT-SWAP MECHANICAL SWITCHES: The MKPRO RGB keyboard supports hot-swapping with two switch types: yellow, pre-lubricated switches with even pressure for a smooth and quiet typing experience, and clicking blue switches with audible, tactile feedback; Includes 4 additional switches and tools\n- CONTROL WHEEL AND ADVANCED SOFTWARE: Equipped with a multimedia control wheel, the compact MKPRO keyboard allows precise volume control and media control; *Advanced software allows you to create macros, adjust the lighting and customize key assignment; *Only available for Windows\n- MULTIPLATFORM COMPATIBILITY: The ergonomic MKPRO keyboard is compatible with Windows, *Mac, *Linux, PS4, PS5, Xbox One and Xbox Series X/S, Switch, with possibility to switch between Mac and Windows mode; *Some functions may not be available due to system reasons",
+    "image": "https://m.media-amazon.com/images/I/71p+SBWN6YL._AC_SL1500_.jpg",
+    "category": "keyboards",
+    "affiliateLink": "https://www.amazon.com/dp/B0F381LXM7?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Mars Gaming"
+  },
+  {
+    "id": "samsung-32-odyssey-g55c-series-qhd-1000r-curved",
+    "name": "Samsung 32\" Odyssey (G55C) Series QHD 1000R Curved Gaming Monitor,",
+    "description": "- BOOST YOUR REALITY: Your gaming world, more lifelike than ever. With 1.7x the pixel density of Full HD, QHD resolution offers razor-sharp, highly detailed visuals. Experience a wider view with more space to immerse yourself in every moment of action\n- REACT IN REAL TIME: Experience the exhilaration of gameplay as you speed through scenes with a 165Hz refresh rate that eliminates lag for smooth action; Jump on enemies immediately with a 1ms1 response time (MPRT) for frames with minimal blur¹\n- EXHILARATE YOUR SENSES: Experience the next level of heart-pounding gaming; Vivid scenes wrap even more tightly around you with the 1000R curved display, filling your peripheral vision and drawing you right into the character's shoes\n- STAY IN SYNC WITH ALL THE ACTION: AMD Radeon FreeSync keeps your monitor and graphics card refresh rate in sync to reduce image tearing, providing a superfluid entertainment experience. Watch movies and play games without interruptions\n- FIND HIDDEN DETAILS OTHERS MISS: Awe-inspiring graphics with HDR10; A kaleidoscope of shades brings game scenes to life with incredible vibrancy; Uncover secrets hiding in the shadows with deep dark blacks, luminous whites & detailed resolution\n- FRESH EYES WIN MORE: Eye Saver Mode minimizes blue light to help keep your eyes relaxed and comfortable when gaming for extended periods; The Odyssey G5 also reduces irritating and tiring screen flicker, so you can focus longer",
+    "image": "https://m.media-amazon.com/images/I/81cYQ1dO5xL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0CRGJC5ZD?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Samsung"
+  },
+  {
+    "id": "samsung-27-odyssey-oled-g6-g61sh-qd-oled-qhd",
+    "name": "Samsung 27\" Odyssey OLED G6 (G61SH) QD-OLED, QHD (1440P) Gaming Monitor",
+    "description": "- Samsung’s 27” Odyssey OLED G6 Gaming Monitor is engineered for perfection with a QD-OLED Display featuring QHD resolution made to deliver high brightness and a wide range of colors for gameplay\n- OLED Safeguard technology supports performance by actively helping to prevent burn-in with a thermal modulation system\n- Glare Free Technology keeps screen clear of reflection from external light sources\n- The Pantone Validated screen accurately reproduces 2100+ lifelike colors and 110+ skin tone shades\n- HDR10 provides brighter highlights and nuanced shadows for added depth and more realistic scenes\n- 240Hz Refresh Rate and 0.03ms response time allow ultimate speed for ultra-smooth gaming precision, while AMD FreeSync Premium reduces choppiness, screen lag, and image tearing\n- Height-adjustable Ergonomic Stand pivots, tilts, and swivels for the perfect view",
+    "image": "https://m.media-amazon.com/images/I/81reQfGuQjL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0GDSC8K2H?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Samsung"
+  },
+  {
+    "id": "msi-mag-321cup-qd-oled-32-inch-4k-uhd-3840x2160",
+    "name": "msi MAG 321CUP QD-OLED, 32-Inch, 4K UHD, 3840x2160, OLED Monitor, 165Hz, 0.03ms, DisplayHDR True Black 400, G-SYNC Compatible, HDMI 2.1, DP 1.4a, USB C (15W PD), Tilt/Height Adjustable, Black",
+    "description": "- QUANTUM DOT OLED - The MSI MAG 321CUP QD-OLED curved gaming monitor combines 10-bit Quantum Dot colour conversion with OLED self-emitting pixels for unrivalled dark levels & an elite response time; A subtle 1700R curvature is ideal for wide-format images\n- 32\" UHD, 10-BIT COLOUR - A Quantum Dot OLED panel displays 1.07 billion colours (10-bit, 99% DCI-P3) with extreme Delta E ≤2 colour accuracy; VESA DisplayHDR True Black 400 certified (1500000:1 native contrast ratio) & up to 1000 nits peak brightness\n- 165 HZ REFRESH RATE, 0.03MS RESPONSE TIME - A high 165 Hz refresh rate is complimented by an incredibly low 0.03 ms (GtG) response time for a supreme VESA ClearMR 9000 motion clarity rating; An elite graphene heatsink (fanless) enhances panel durability\n- GAMING INTELLIGENCE - MSI GI software features OLED Care 2.0 to help prevent burn-in, AI supported software (Smart Crosshair), Console modes & Game Assistance; PiP/PbB compatible; Features a 3-way adjustable stand (VESA 100mm)\n- CUTTING-EDGE CONNECTIVITY - PC, Mac, console & laptop interface options (all UHD/165Hz) include DisplayPort 1.4a, HDMI 2.1 CEC ports & USB Type-C with Power Delivery (15W)",
+    "image": "https://m.media-amazon.com/images/I/81RQyMSGDnL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0DPXZP328?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "msi"
+  },
+  {
+    "id": "benq-mobiuz-ex271u-27-4k-earc-165hz-1ms",
+    "name": "BenQ MOBIUZ EX271U 27” 4K eARC 165Hz 1ms DP 1.4 HDMI 2.1 65W USB-C Gaming Monitor, 95% P3, DisplayHDR 400, Freesync Premium, KVM, Pixsoul Engine, Remote Controller",
+    "description": "- [AI Detail Enhancement] Offering a vibrant world tailored to preferences, ensuring each game is showcased in an aesthetically pleasing palette.\n- [Built-in eARC supporting up to 7.1 channels] Address console sound with our first built-in eARC gaming monitors supporting up to 7.1 channels.\n- [Plug-and-play across Platforms with KVM] Seamless connectivity with DP 1.4, HDMI 2.1, and USB-C (65W PD) to link your battle stations.\n- [Supercharge Your Game with Color Shuttle] Various authorized presets for the most popular games to boost the delicacy of your experience.\n- [Eye-Care Technology and Ergonomics] Eye-Care Technology and Ergonomics make it easy for greater comfort during long gaming sessions.",
+    "image": "https://m.media-amazon.com/images/I/71lpsyfd0kL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0DG63XH6T?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "BenQ"
+  },
+  {
+    "id": "benq-zowie-xl2566x-24-1-dyac-2-400hz",
+    "name": "BenQ Zowie XL2566X+ 24.1 DyAc 2 400Hz Fast TN Gaming Monitor for Esports",
+    "description": "- PROVIDE THE BEST MOTION CLARITY IN THE INDUSTRY — Compared to any other panel types, a Fast TN panel with DyAc technology provide clearer and sharper images.\n- SHARPEST AND CLEAREST VISUALS — At the resolutions most commonly used by pro players, our Fast TN panel with native FHD resolution provides better image sharpness.\n- OVERSHOOT REDUCED WITH NEWLY DEVELOPED FAST TN PANEL — The latest panel design improves electrical conductivity, enhancing liquid crystal responsiveness and effectively reducing overshoot.\n- BETTER COLOR PERFORMANCE — The XL2566X+ has been meticulously redesigned to enhance color performance, offering more vibrant hues and greater clarity in identifying enemies.\n- LATEST DYNAMIC ACCURACY TECHNOLOGY (DYAC 2) — With its dual backlight technology, DyAc 2 enhances performance in blur reduction while it offers a soft light output, facilitating eye adaptation.",
+    "image": "https://m.media-amazon.com/images/I/61cqp0n54sL._AC_SL1428_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0D3JC9S9M?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "BenQ"
+  },
+  {
+    "id": "lg-27gr83q-b-27-inch-ultragear-qhd-2560x1440-ips-gaming",
+    "name": "LG 27GR83Q-B 27-inch Ultragear QHD (2560x1440) IPS Gaming Monitor, 240Hz, 1ms, DisplayHDR 400, G-Sync AMD FreeSync Premium, HDMI 2.1 DisplayPort, 4-Pole HP Out DTS GP:X, Tilt/Height/Pivot Stand, Black",
+    "description": "- QHD at 240Hz by DisplayPort or HDMI - Enjoy smoother, vivid colors and high-resolution graphics thanks to HDMI 2.1 and DisplayPort 1.4. Both connections are supported on this display and let you experience up to 240Hz refresh rate.\n- IPS 1ms (GtG) - Re-imagine every scene with vivid, responsive IPS. At 27“, LG's UltraGear IPS Display features vibrant color, contrast, clarity and detail, while delivering ultra-fast 1ms (GtG) response rates.\n- NVIDIA G-SYNC Compatible - Officially validated by NVIDIA as G-SYNC Compatible. That translates to faster, smoother gaming that's been tested to reduce screen tearing and stutter. Never miss a frame of the action as you clinch your victories.\n- AMD FreeSync Premium - AMD FreeSync Premium equips serious gamers with a fluid, virtually tear-free gaming experience. With at least 120hz refresh rate at minimum FHD resolution and low latency gameplay, you'll never miss a frame of the action as you play at peak performance.\n- HDR400 with up to DCI-P3 95 percent (Typ.) - This UltraGear display supports up to 95 percent (Typ.) of the DCI-P3 color gamut, expressing high-fidelity color paired with VESA DisplayHDR 400 delivering dynamic contrast, on the QHD display.\n- Enhanced Gaming GUI - Choose from a variety of modes including Gamer, FPS or RTS to optimize display settings for the best view possible.\n- Compete in Vibrant Color - This UltraGear display supports up to 95% (Typ.) of the DCI-P3 color gamut, expressing high-fidelity color paired with VESA DisplayHDR 400 delivering dynamic contrast, on the QHD display.\n- Customized for a Game Changing Experience - Choose from a variety of modes including Gamer, FPS or RTS to optimize display settings for the best view possible.\n- Advanced Gaming Features - Dynamic Action Sync: Respond to action as it happens with reduced input lag. Black Stabilizer: Black Stabilizer is your ally to attack or defend in dark scenes. FPS Counter: Your frames per second displayed for real-time data. Crosshair: Center-display crosshairs give enhanced vision and precision for accuracy.\n- Amp Up Your Game - DTS Headphone:X provides accurate spatialization and localization in games for 3D audio over headphones. Supports channel-based, scene based, and object-based audio. Plus, a 4-pole headphone jack lets you carry a stereo headphone signal and mono microphone signal with common ground.",
+    "image": "https://m.media-amazon.com/images/I/81E61XAb1RL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0C63HDHPR?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "LG"
+  },
+  {
+    "id": "lg-32gs60qc-b-ultragear-32-inch-curved-gaming-monitor-qhd",
+    "name": "LG 32GS60QC-B Ultragear 32-inch Curved Gaming Monitor QHD (2560x1440) 180Hz 1ms 1000R AMD FreeSync HDR10 HDMIx2 DisplayPort Borderless Design Black Stabilizer DAS Crosshair FPS Counter - Black",
+    "description": "- Ascend your game with the speed of UltraGear - Experience next-level QHD gaming performance.\n- 180Hz Refresh Rate & 1ms GtG - Gear up for smooth gameplay at up to 180Hz refresh rate and 1ms GtG. The faster speed and smoother action lets you respond quickly to stay a step ahead of the competition.\n- 1000R Curved Screen - This UltraGear monitor's dramatic and steep 1000R curve draws you in with game play by extending the periphery to feel like you're surround by the action.\n- AMD FreeSync - AMD FreeSync equips gamers with a fluid, virtually tear-free gaming experience. With up to a 180Hz refresh rate at Full HD resolution and low latency gameplay, you'll never miss a frame of the action as you play at peak performance.\n- Gamer-Centric Design - Lose yourself in the game with a three-side virtually borderless, ultra-thin design that optimizes space on your battlestation. With two HMDI ports and DisplayPort connectivity on a tilt adjustable display, game to your specs.\n- 99% sRGB color gamut - Immerse yourself in a world of brilliant color from HDR10 that helps enhance picture quality and up to 99% sRGB color gamut expression to make games visually pop.\n- Enhanced Gaming GUI - Choose from a variety of modes including Gamer, FPS or RTS to optimize display settings for the best view possible.\n- Dynamic Action Sync - Respond to action as it happens with reduced input lag.\n- Black Stabilizer - Black Stabilizer is your ally to attack or defend in dark scenes.\n- FPS Counter - Your frames per second displayed for real-time data.",
+    "image": "https://m.media-amazon.com/images/I/81pumDl4YHL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0D2FSYS5J?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "LG"
+  },
+  {
+    "id": "asus-rog-pg32ucdm-32-inch-4k-240hz-oled",
+    "name": "ASUS ROG PG32UCDM 32 Inch 4K 240Hz OLED Gaming Monitor QD-OLED",
+    "description": "- Immersive 4K QD-OLED Display: 32-inch 4K (3840 x 2160) QD-OLED gaming monitor with 240 Hz refresh rate and 0.03 ms (GTG) response time for immersive gaming\n- Advanced Heat Management System: Highly efficient custom heatsink, advanced airflow design, and graphene film for better heat management to reduce the risk of burn-in\n- Exceptional HDR Performance: VESA DisplayHDR 400 True Black compliance, 99% DCI-P3 gamut, true 10-bit, and Delta E < 2 color difference for astonishing HDR performance\n- Uniform Brightness Setting: Optional uniform brightness setting ensures consistent luminance levels across the entire display\n- Convenient Monitor Control: DisplayWidget Center allows users to access OLED Care functions, as well as adjust monitor settings with a mouse\n- Comprehensive Warranty Coverage: 3 years warranty with ARR and burn-in coverage\n- G-SYNC Compatible Technology: Supports G-SYNC Compatible for smooth, tear-free gaming experience with reduced input lag\n- Versatile Connectivity Options: 90W USB-C power delivery enables single-cable connection for charging and data transfer with compatible devices\n- Free 3-month Adobe Creative Cloud Subscription: Receive complimentary access with the purchase of this product (offer valid to 8/31/2028)",
+    "image": "https://m.media-amazon.com/images/I/91t16+g29KL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0CV26XVMD?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "ASUS"
+  },
+  {
+    "id": "acer-nitro-34in-wqhd-3440x1440-curved-200hz-gaming",
+    "name": "Acer Nitro 34in WQHD 3440x1440 Curved 200Hz Gaming Monitor EDA340CUR X0biip",
+    "description": "- Vibrant Images: The Nitro EDA340CUR 34\" Curved Display with QHD (3440 x 1440) resolution offers the sharpest picture quality and provides a perfect picture with a broader view. The zero-frame design does away with the thick frames found on conventional monitors freeing up precious screen space, so you have more to look at from edge to edge.\n- AMD FreeSync Premium Technology: Say “goodbye” to stuttering and tearing. With AMD FreeSync Premium, the monitor’s frames are synced with the graphics card’s frames, which eliminates screen tearing and provide the smoothest gaming experience.\n- 200Hz Refresh Rate: The 200Hz refresh rate speeds up the frames per second to deliver an ultra-smooth 2D motion scene. With a rapid refresh rate of 200Hz, Acer Gaming Monitors shorten the time it takes for frame rendering, lower input lag and provide gamers an excellent in-game experience.\n- Responsive!!: Up to 0.5ms GTG (Gray to Gray) response time enhanced gamers’ in-game experience. No matter the fast-moving action or any dramatic transitions will be all rendered smoothly without the annoying effects of smearing or ghosting with EDA340CUR Gaming Monitor.\n- Curved Screen: The 1500R curved 21:9 display wraps you in a world of entertainment with every corner of the screen at the same distance from your eyes for a uniform viewing experience without blind spots. Tilt the screen -5 to 20 degrees for the most comfortable view.",
+    "image": "https://m.media-amazon.com/images/I/718BWns+BuL._AC_SL1500_.jpg",
+    "category": "monitors",
+    "affiliateLink": "https://www.amazon.com/dp/B0GLQC7NF9?tag=findsondesk-20",
+    "dateAdded": "2026-09-29",
+    "brand": "Acer"
   }
 ]
