@@ -225,12 +225,12 @@ function badge() {
 function productCard(p) {
   const cat = CAT[p.category];
   const url = `/product/${p.id}/`;
-  const searchText = esc(`${p.name} ${cat.name}`.toLowerCase());
+  const searchText = esc(`${displayName(p)} ${p.name} ${p.brand || ""} ${cat.name} ${cat.slug.replace(/-/g, " ")}`.toLowerCase());
   return `<article class="card" data-search-text="${searchText}">
   <button class="fav-btn" type="button" data-fav="${esc(p.id)}" aria-pressed="false" aria-label="Save to favorites">${icon("heart")}</button>
   <a class="card-media" href="${url}" tabindex="-1" aria-hidden="true"><img src="${esc(p.image)}" alt="${esc(displayName(p))}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="400" height="400"></a>
   <div class="card-body">
-    <span class="card-cat">${esc(cat.name)}</span>
+    <span class="card-cat">${esc(cat.name)}${p.brand ? ` <span class="card-brand">· ${esc(p.brand)}</span>` : ""}</span>
     <h3 class="card-title"><a href="${url}">${esc(displayName(p))}</a></h3>
   </div>
 </article>`;
@@ -331,6 +331,10 @@ ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j).repl
     <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><img src="/favicon.svg" alt="" width="34" height="34">${esc(SITE.name)}</a>
     <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav"><span class="visually-hidden">Menu</span>${icon("menu")}</button>
     <nav class="nav" id="site-nav" aria-label="Main">
+      <form class="nav-search" action="/catalog/" method="get" role="search">
+        <label class="visually-hidden" for="site-search">Search finds</label>
+        ${icon("search")}<input id="site-search" type="search" name="q" placeholder="Search finds…" autocomplete="off">
+      </form>
       ${nav("/", "Home", "home")}
       ${nav("/catalog/", "Catalog", "catalog")}
       ${nav("/#categories", "Categories", "categories")}
@@ -597,7 +601,7 @@ function pageProduct(p) {
   <article class="product">
     <div class="product-media"><img src="${esc(p.image)}" alt="${esc(displayName(p))}" referrerpolicy="no-referrer" width="600" height="600" fetchpriority="high"></div>
     <div class="product-info">
-      <a class="pill" href="/category/${c.slug}/">${esc(c.name)}</a>
+      <a class="pill" href="/category/${c.slug}/">${esc(c.name)}</a>${p.brand ? `<span class="product-brand">by <a href="/catalog/?q=${encodeURIComponent(p.brand)}">${esc(p.brand)}</a></span>` : ""}
       <h1>${esc(displayName(p))}</h1>
       ${plain(p.name) !== displayName(p) ? `<p class="product-fullname">${esc(p.name)}</p>` : ""}
       <div class="product-desc">${renderDescription(p.description)}</div>
