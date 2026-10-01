@@ -94,18 +94,34 @@
     var q = new URLSearchParams(location.search).get("q");
     if (q) input.value = q;
 
+    // lower-case, no accents; "mice"/"mouse", plurals and word order don't matter
+    function norm(s) { return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+    var ALIASES = { mice: "mouse", mouses: "mouse", headset: "headphone", headsets: "headphone", lamp: "light", lamps: "light" };
+    function stem(w) { w = ALIASES[w] || w; return w.length > 3 ? w.replace(/ies$/, "y").replace(/s$/, "") : w; }
+    var texts = cards.map(function (c) { return " " + norm(c.getAttribute("data-search-text")).split(/[^a-z0-9]+/).map(stem).join(" "); });
+
     function run() {
-      var term = input.value.trim().toLowerCase();
+      var raw = input.value.trim();
+      var terms = norm(raw).split(/[^a-z0-9]+/).filter(Boolean).map(stem);
       var shown = 0;
-      cards.forEach(function (c) {
-        var match = !term || c.getAttribute("data-search-text").indexOf(term) !== -1;
+      cards.forEach(function (c, i) {
+        var match = terms.every(function (t) { return texts[i].indexOf(" " + t) !== -1; });
         c.hidden = !match;
         if (match) shown++;
       });
-      if (note) note.textContent = term ? shown + " result" + (shown === 1 ? "" : "s") + " for “" + input.value.trim() + "”" : "";
-      if (empty) empty.hidden = !(term && shown === 0);
+      if (note) note.textContent = terms.length ? shown + " result" + (shown === 1 ? "" : "s") + " for “" + raw + "”" : "";
+      if (empty) empty.hidden = !(terms.length && shown === 0);
+      // keep the URL shareable: /catalog/?q=gaming+mouse
+      try { history.replaceState(null, "", raw ? "?q=" + encodeURIComponent(raw).replace(/%20/g, "+") : location.pathname); } catch (e) {}
     }
-    input.addEventListener("input", run);
+    // the header box and the catalog box show the same search
+    var header = document.getElementById("site-search");
+    input.addEventListener("input", function () { if (header) header.value = input.value; run(); });
+    if (header) {
+      header.value = input.value;
+      header.form.addEventListener("submit", function (e) { e.preventDefault(); input.value = header.value; run(); input.scrollIntoView({ block: "center" }); });
+      header.addEventListener("input", function () { input.value = header.value; run(); });
+    }
     run();
   }
 
