@@ -167,6 +167,15 @@
       ]
     },
     {
+      "slug": "gta-vi", "name": "GTA VI", "group": "gear", "icon": "gamepad",
+      "description": "Grand Theft Auto VI picks for your setup: the game, themed controllers, posters and Vice City-style neon decor.",
+      "tips": [
+        "GTA VI is announced for PS5 and Xbox Series X|S, so make sure the edition you pick matches your console.",
+        "Special and collector's editions sell out fast. Compare what each one includes before you choose.",
+        "Pink and purple LED strips or a neon sign recreate the Vice City look on any desk."
+      ]
+    },
+    {
       "slug": "room-decor", "name": "Room Decor", "group": "room", "icon": "frame",
       "description": "Wall art, neon signs, rugs, plants and pieces that give the room its vibe.",
       "tips": [
